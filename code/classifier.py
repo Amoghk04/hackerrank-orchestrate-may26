@@ -160,10 +160,6 @@ def should_escalate(issue: str, company: str | None) -> Tuple[bool, str]:
         if pattern.search(issue):
             return True, "Security vulnerability report — must be routed to the responsible disclosure / bug bounty programme."
 
-    # No company and vague issue (cannot determine domain)
-    if company is None and len(issue.strip()) < 50:
-        return True, "Insufficient information: company unknown and issue description too vague to action."
-
     return False, ""
 
 
@@ -201,7 +197,12 @@ def classify_request_type(issue: str, company: str | None) -> str:
     bug_terms = [
         "not working", "broken", "error", "failing", "crashed", "crash", "bug",
         "doesn't work", "doesn't load", "stopped working", "not loading",
-        "all requests.{0,20}failing", "not responding",
+        r"all requests.{0,20}failing", "not responding",
+        "is down", "site is down", "service is down", "system is down",
+        "not accessible", "inaccessible", "cannot access", "can't access",
+        "pages are not", "none of the pages", "website is down",
+        "not available", "returning an error", "throws an error",
+        "500 error", "404 error",
     ]
     for term in bug_terms:
         if re.search(term, lower):
@@ -231,8 +232,75 @@ def classify_request_type(issue: str, company: str | None) -> str:
         if re.search(term, lower):
             return "invalid"
 
+    # Closing / acknowledgement messages (not actionable support requests)
+    closing_terms = [
+        r"^thank\s+you\b", r"^thanks\b", r"^ty\b",
+        r"\bthank\s+you\s+for\s+(helping|your\s+help|the\s+help|support|resolving)\b",
+        r"\bthanks\s+for\s+(helping|your\s+help|the\s+help|support|resolving)\b",
+        r"^(hi|hello|hey)\s*[!.]*$",
+        r"^(ok|okay|great|perfect|got\s+it|understood|noted)\s*[!.]*$",
+    ]
+    for term in closing_terms:
+        if re.search(term, lower):
+            return "invalid"
+
     # Default
     return "product_issue"
+
+
+def detect_non_english(text: str) -> bool:
+    """
+    Return True if the text is likely non-English.
+    Heuristic: >40% of characters are non-ASCII (excludes pure punctuation/numbers).
+    This does NOT treat non-English as invalid — it just triggers a note in the prompt.
+    """
+    if not text or len(text) < 10:
+        return False
+    letters = [c for c in text if c.isalpha()]
+    if not letters:
+        return False
+    non_ascii_letters = sum(1 for c in letters if ord(c) > 127)
+    return (non_ascii_letters / len(letters)) > 0.40
+
+
+def detect_multi_request(issue: str) -> list[str]:
+    """
+    Detect whether an issue contains multiple distinct requests.
+
+    Returns a list of identified request segments (empty if single request).
+    The caller should triage the highest-priority request and note the rest.
+    """
+    # Signals of multiple requests in a single ticket
+    _MULTI_SIGNALS = [
+        re.compile(r"\balso\s+(want|need|would\s+like|asking)\b", re.I),
+        re.compile(r"\badditionally\b.{0,50}(want|need|request|ask)", re.I),
+        re.compile(r"\band\s+also\b.{0,40}(want|need|please|could)\b", re.I),
+        re.compile(r"\bsecondly\b|\bfirstly\b.{0,200}\bsecondly\b", re.I),
+        re.compile(r"\bfirst.*?\bsecond\b.{0,200}\b(request|issue|problem|question)\b", re.I | re.S),
+        re.compile(r"\btwo\s+(issues?|questions?|requests?|things?)\b", re.I),
+        re.compile(r"\bmultiple\s+(issues?|questions?|requests?|problems?)\b", re.I),
+    ]
+    # Numbered list patterns (1. xxx 2. xxx)
+    _NUMBERED_LIST_RE = re.compile(r"(?:^|\n)\s*[1-9][.)]\s+.+", re.MULTILINE)
+
+    has_signal = any(p.search(issue) for p in _MULTI_SIGNALS)
+    numbered_items = _NUMBERED_LIST_RE.findall(issue)
+    has_numbered_multi = len(numbered_items) >= 2
+
+    if not (has_signal or has_numbered_multi):
+        return []
+
+    # Extract the individual segments via numbered list or sentence splitting
+    if has_numbered_multi:
+        return [item.strip() for item in numbered_items]
+
+    # Fall back: split on multi-request conjunctions and return fragments
+    fragments = re.split(
+        r"\b(also\s+(want|need|would\s+like)|additionally|and\s+also|secondly)\b",
+        issue,
+        flags=re.I,
+    )
+    return [f.strip() for f in fragments if f and len(f.strip()) > 20]
 
 
 # ---------------------------------------------------------------------------

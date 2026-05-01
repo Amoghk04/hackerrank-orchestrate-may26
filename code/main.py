@@ -126,6 +126,9 @@ def run(input_path: pathlib.Path, output_path: pathlib.Path, dry_run: bool = Fal
                 elapsed = time.time() - t0
 
                 row_dict = result.to_dict()
+                row_dict["issue"] = str(row.get("issue", ""))
+                row_dict["subject"] = str(row.get("subject", ""))
+                row_dict["company"] = str(row.get("company", ""))
                 results.append(row_dict)
 
                 status_color = "green" if result.status == "replied" else "yellow"
@@ -142,6 +145,9 @@ def run(input_path: pathlib.Path, output_path: pathlib.Path, dry_run: bool = Fal
                 traceback.print_exc()
                 # Still append a safe fallback so CSV row count matches
                 results.append({
+                    "issue": str(row.get("issue", "")),
+                    "subject": str(row.get("subject", "")),
+                    "company": str(row.get("company", "")),
                     "status": "escalated",
                     "product_area": "",
                     "response": "Your ticket has been escalated to our support team for manual review.",

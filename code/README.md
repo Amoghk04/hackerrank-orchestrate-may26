@@ -13,10 +13,11 @@ An AI-powered support triage system that classifies and responds to customer sup
 5. [Installation](#installation)
 6. [Configuration](#configuration)
 7. [Running the Agent](#running-the-agent)
-8. [Output Format](#output-format)
-9. [Escalation Logic](#escalation-logic)
-10. [Design Decisions](#design-decisions)
-11. [Dependencies](#dependencies)
+8. [Evaluation](#evaluation)
+9. [Output Format](#output-format)
+10. [Escalation Logic](#escalation-logic)
+11. [Design Decisions](#design-decisions)
+12. [Dependencies](#dependencies)
 
 ---
 
@@ -28,14 +29,15 @@ Each support ticket passes through a **5-layer pipeline**:
 
 2. **Rule-based gate (pre-LLM)** — Before any API call, a deterministic classifier checks for adversarial content (prompt injection attempts, destructive commands) and hard-escalation triggers (score manipulation requests, identity fraud, financial disputes, security vulnerability reports). Tickets caught here are escalated immediately without touching the LLM — saving cost and preventing manipulation.
 
-3. **Hybrid retrieval** — The issue + subject are used as a query against a corpus of 6,496 chunks (from 774 Markdown help-centre articles). Retrieval combines:
+3. **Query expansion + Hybrid retrieval** — Before retrieval, the query is enriched by extracting salient terms from the ticket: capitalised phrases, technical tokens, and proper nouns (e.g. `CodePair`, `LTI`, `Haiku`). The expanded query is run against a corpus of 6,496 chunks (from 774 Markdown articles). Retrieval combines:
    - **BM25** (keyword match, via `rank-bm25`) for exact terminology
    - **Semantic search** (dense embeddings via `sentence-transformers/all-MiniLM-L6-v2`) for meaning-level similarity
-   - **Reciprocal Rank Fusion (RRF)** to merge both ranked lists
+   - **Reciprocal Rank Fusion (RRF)** to merge both ranked lists, returning a score per chunk
    - **1.3× domain boost** — chunks from the inferred company domain score higher
-   - Top 7 chunks are injected into the Claude prompt as grounding context.
+   - **Retrieval confidence gate** — if the top chunk's RRF score falls below `MIN_RETRIEVAL_CONFIDENCE` (0.004), the LLM is warned that corpus coverage is weak and should rely on general knowledge or escalate
+   - Top 7 chunks (labelled `Document 1`…`Document 7`) are injected into the Claude prompt
 
-4. **Claude structured output** — Claude (`claude-haiku-4-5`, temperature=0) is called with `tool_choice=any` forcing it to invoke the `submit_triage_decision` tool. This guarantees a structured JSON response with all five required fields — no free-text parsing needed.
+4. **Claude structured output** — Before the API call, additional context flags are injected into the user message: if non-English characters account for >40% of letter characters, the LLM is instructed to respond in the ticket's language; if numbered lists or multi-request connector phrases are detected ("also want", "additionally", "two issues"), the LLM is instructed to address the primary request and acknowledge the rest. Claude (`claude-haiku-4-5`, temperature=0) is called with `tool_choice=any` forcing it to invoke the `submit_triage_decision` tool. The LLM is instructed to cite retrieved documents by number (e.g. `[1]`, `[2]`) in the `justification` field for full auditability.
 
 5. **Pydantic validation + retry** — The tool response is validated against a `TriageResult` Pydantic model. If validation fails (wrong enum value, missing field), the entire API call retries once. If both attempts fail, a safe escalation fallback is returned.
 
@@ -102,8 +104,8 @@ Parses CLI arguments, loads the environment, reads the input CSV, builds the ret
 ### `retriever.py` — Corpus + hybrid index
 
 - `CorpusLoader.load()` — walks `data/hackerrank`, `data/claude`, `data/visa`, reads every `.md` file, and produces `Chunk` objects with `domain`, `source_file`, and `text` fields.
-- `Chunk.as_context()` — formats a chunk for injection into the Claude prompt, including its source path.
-- `HybridRetriever` — builds a `BM25Okapi` index and a `SentenceTransformer` embedding matrix at startup. The `retrieve(query, company, top_k)` method runs both retrievers, fuses their ranked results via RRF, applies a `1.3×` domain boost to chunks from the inferred company, and returns the top-k chunks.
+- `Chunk.as_context()` — formats a chunk for injection into the Claude prompt, including its numbered label and source path.
+- `HybridRetriever` — builds a `BM25Okapi` index and a `SentenceTransformer` embedding matrix at startup. `retrieve(query, company, top_k)` returns the top-k chunks; `retrieve_with_scores(query, company, top_k)` returns `(chunk, rrf_score)` pairs for confidence gating.
 - `build_retriever()` — convenience factory used by `main.py`.
 
 ### `classifier.py` — Pre-LLM rule engine
@@ -112,19 +114,47 @@ Parses CLI arguments, loads the environment, reads the input CSV, builds the ret
 - `should_escalate(issue, company)` — checks five escalation categories: score manipulation, account takeover by non-owner, identity fraud, financial disputes, and security vulnerability reports. Returns `(bool, reason_string)`.
 - `infer_company(issue, subject)` — scores domain-specific keyword hits across HackerRank, Claude, and Visa vocabulary lists; returns the domain with the highest unambiguous score.
 - `classify_request_type(issue, company)` — provides an initial `request_type` hint (`bug`, `feature_request`, `product_issue`, `invalid`) that is passed to the LLM as a starting suggestion (the LLM may override it).
+- `detect_non_english(text)` — heuristic flag: returns `True` if >40% of alphabetic characters are non-ASCII. Used to inject a language-response note into the LLM prompt.
+- `detect_multi_request(issue)` — detects numbered lists and multi-request connector phrases ("also want", "additionally", "two issues"). Returns a list of identified sub-request segments.
 
 ### `agent.py` — Triage orchestrator
 
 - `TriageResult` — Pydantic model with field validators enforcing `status ∈ {replied, escalated}` and `request_type ∈ {product_issue, feature_request, bug, invalid}`.
 - `_TRIAGE_TOOL` — Claude tool schema for `submit_triage_decision` with all five fields, their types, and detailed descriptions constraining the LLM's choices.
-- `_SYSTEM_TEMPLATE` — system prompt establishing the triage persona, grounding rules, explicit default of `replied`, hard conditions for `escalated`, and injected corpus context.
-- `TriageAgent.triage(row)` — runs all five pipeline layers for one ticket row.
-- `_call_claude()` — builds the prompt, calls the API with `tool_choice={"type": "any"}`, retries once on failure, and applies force-escalate override if the rule gate fired.
+- `_SYSTEM_TEMPLATE` — system prompt establishing the triage persona, grounding rules (cite documents as `[1]`/`[2]` in justification), explicit default of `replied`, hard conditions for `escalated`, and injected corpus context.
+- `_expand_query(issue, subject)` — enriches the retrieval query by extracting capitalised phrases, technical tokens, and proper nouns from the ticket (up to 8 extras appended). Improves recall for tickets with vague subject lines.
+- `TriageAgent.triage(row)` — runs all five pipeline layers for one ticket row, including confidence gate check, non-English detection, and multi-request detection.
+- `_call_claude()` — builds the user message with all contextual notes (low-confidence warning, language note, multi-request note), calls the API with `tool_choice={"type": "any"}`, retries once on failure, and applies force-escalate override if the rule gate fired.
 - `_safe_fallback()` — last-resort escalation returned if both API attempts fail.
 
 ### `utils.py` — Shared constants and helpers
 
-Key constants: `MODEL_NAME`, `MAX_TOKENS=1500`, `TEMPERATURE=0`, `TOP_K=7`, `DOMAIN_BOOST=1.3`, `RRF_K=60`. Provides `load_env()`, `read_tickets()`, `write_output()`, `normalise_company()`, and `truncate()`.
+Key constants: `MODEL_NAME` (`claude-haiku-4-5`), `MAX_TOKENS=1500`, `TEMPERATURE=0`, `TOP_K=7`, `DOMAIN_BOOST=1.3`, `RRF_K=60`, `MIN_RETRIEVAL_CONFIDENCE=0.004`. Provides `load_env()`, `read_tickets()`, `write_output()`, `normalise_company()`, and `truncate()`.
+
+> **Model slug note**: `claude-haiku-4-5` is the Anthropic GA name for Haiku 4.5. If the API returns a model-not-found error, fall back to `claude-3-5-haiku-20241022` in `utils.py`.
+
+### `evaluate.py` — Self-evaluation script
+
+Runs the full pipeline on `sample_support_tickets.csv` (the 10-row labelled reference set) and scores the resulting predictions against the reference labels. Reports per-row status / request_type / product_area accuracy with a mismatch detail section.
+
+```bash
+# Generate predictions for sample tickets and score (requires API key):
+python code/evaluate.py
+
+# Score an already-generated sample_output.csv without re-calling the API:
+python code/evaluate.py --no-generate
+```
+
+Output: `support_tickets/sample_output.csv` plus a Rich accuracy table. Returns exit code 0 if overall accuracy ≥ 70%, else 1.
+
+### `test_classifier.py` — Unit tests
+
+43 assertion-based unit tests covering all six public functions in `classifier.py`. No external test framework required — runs with plain Python or `pytest`.
+
+```bash
+python code/test_classifier.py         # plain Python runner
+pytest  code/test_classifier.py -v     # verbose pytest output
+```
 
 ---
 
@@ -233,6 +263,26 @@ Index ready.
 **Expected runtime**: ~8–10 minutes for 29 tickets (index build ~6 min on first run due to embedding all 6,496 chunks; ~7–9s per ticket for Claude API calls).
 
 > **Note**: The first run downloads `all-MiniLM-L6-v2` (~90 MB) and encodes all chunks. Subsequent runs reuse the cached model but re-encode chunks each time (no persistent vector store — intentional, keeps the codebase stateless).
+
+---
+
+## Evaluation
+
+To measure accuracy against the labelled sample tickets before submission:
+
+```bash
+# Generate predictions for the 10-row sample and score them:
+python code/evaluate.py
+
+# If predictions are already in support_tickets/sample_output.csv:
+python code/evaluate.py --no-generate
+```
+
+To run the classifier unit tests:
+
+```bash
+python code/test_classifier.py    # 43/43 should pass
+```
 
 ---
 

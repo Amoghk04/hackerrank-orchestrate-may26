@@ -33,6 +33,8 @@ DOMAIN_DIRS: Dict[str, pathlib.Path] = {
 # Claude API constants
 # ---------------------------------------------------------------------------
 
+# Model slug: "claude-haiku-4-5" is the Anthropic GA name for the Haiku 4.5 release.
+# If the API returns a model-not-found error, fall back to "claude-3-5-haiku-20241022".
 MODEL_NAME = "claude-haiku-4-5"
 MAX_TOKENS = 1500
 TEMPERATURE = 0  # determinism is evaluated
@@ -41,7 +43,7 @@ TEMPERATURE = 0  # determinism is evaluated
 # Output schema
 # ---------------------------------------------------------------------------
 
-OUTPUT_COLUMNS = ["status", "product_area", "response", "justification", "request_type"]
+OUTPUT_COLUMNS = ["issue", "subject", "company", "response", "product_area", "status", "request_type", "justification"]
 
 VALID_STATUSES = {"replied", "escalated"}
 VALID_REQUEST_TYPES = {"product_issue", "feature_request", "bug", "invalid"}
@@ -51,8 +53,14 @@ VALID_REQUEST_TYPES = {"product_issue", "feature_request", "bug", "invalid"}
 # ---------------------------------------------------------------------------
 
 TOP_K = 7
-DOMAIN_BOOST = 1.3  # multiplied onto RRF score for matching-domain chunks
-RRF_K = 60          # standard RRF constant
+DOMAIN_BOOST = 1.3   # multiplied onto RRF score for matching-domain chunks
+RRF_K = 60           # standard RRF constant
+# Minimum RRF score for the top retrieved chunk before we warn the LLM that
+# corpus coverage is weak.  Max possible score ≈ 0.033 (both BM25 & semantic
+# rank the chunk at position 0 with k=60).  0.004 is ~12% of maximum, meaning
+# both retrievers placed the chunk well past position ~200 — almost certainly
+# off-topic retrieval.
+MIN_RETRIEVAL_CONFIDENCE = 0.004
 
 # ---------------------------------------------------------------------------
 # Env / API key

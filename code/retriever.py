@@ -19,7 +19,7 @@ import numpy as np
 from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer
 
-from utils import DOMAIN_DIRS, DOMAIN_BOOST, RRF_K, TOP_K
+from utils import DOMAIN_DIRS, DOMAIN_BOOST, RRF_K, TOP_K, MIN_RETRIEVAL_CONFIDENCE
 
 # ---------------------------------------------------------------------------
 # Chunk model
@@ -230,6 +230,22 @@ class HybridRetriever:
             company: Canonical domain ('hackerrank', 'claude', 'visa') or None.
             top_k:   Number of chunks to return.
         """
+        return [chunk for chunk, _ in self.retrieve_with_scores(query, company, top_k)]
+
+    def retrieve_with_scores(
+        self,
+        query: str,
+        company: str | None = None,
+        top_k: int = TOP_K,
+    ) -> List[Tuple[Chunk, float]]:
+        """
+        Like retrieve(), but also returns the RRF score for each chunk.
+
+        Returns:
+            List of (Chunk, rrf_score) tuples, sorted by score descending.
+            The top score can be compared against MIN_RETRIEVAL_CONFIDENCE to
+            detect weak corpus coverage before calling the LLM.
+        """
         n = len(self._chunks)
 
         # --- BM25 ranking ---
@@ -260,7 +276,7 @@ class HybridRetriever:
 
         # Sort by RRF score descending
         ranked = sorted(rrf.keys(), key=lambda i: rrf[i], reverse=True)
-        return [self._chunks[i] for i in ranked[:top_k]]
+        return [(self._chunks[i], rrf[i]) for i in ranked[:top_k]]
 
 
 # ---------------------------------------------------------------------------
