@@ -1,1 +1,415 @@
-issue,subject,company,response,product_area,status,request_type,justification
+status,product_area,response,justification,request_type
+escalated,account-management,"Thank you for contacting us. I understand you've lost access to your Claude team workspace after your IT admin removed your seat, and you'd like to restore that access.
+
+I appreciate you reaching out, but this request requires verification and action that only our account security and administration team can perform. Since you are not the workspace owner or admin, we need to follow proper security protocols before restoring access to ensure the change aligns with your organization's access policies.
+
+Here's what will happen next:
+
+Our specialized account security team will review your request and verify your identity and organizational status. They may reach out to you directly to confirm details about your access removal and to coordinate with your organization's administrators if needed. This verification process helps us protect your account and ensure that access changes are authorized by the appropriate parties in your organization.
+
+In the meantime, if you believe your access was removed in error, we recommend contacting your IT admin or the Primary Owner/Owner of your Claude organization directly. They can quickly reassign you to a seat through **Organization settings > Organization** if your removal was unintended. If seats are unavailable, they may need to purchase additional seats first through **Organization settings > Billing**.
+
+Our team will be in touch shortly to assist further. Thank you for your patience.","This ticket is escalated per the explicit IMPORTANT flag provided in the ticket metadata. The customer is requesting access restoration as a non-owner/non-admin, which requires identity verification and privileged human action by the account security team. Per the grounding rule, ""The request requires a privileged human action that ONLY a human admin can perform: billing reversal, score/grade change, ownership transfer, account unblocking by request of a non-owner"" — this case falls under account unblocking by a non-owner request. The product_area is 'account-management' based on the seat assignment and access control context (Document 5: Purchase and manage seats on Enterprise plans; Document 4: Manage members on Team and Enterprise plans). The request_type is 'product_issue' as indicated in the classification hint, since this is an access/usage problem rather than a bug or feature request.",product_issue
+escalated,interviews,"Thank you for reaching out regarding your HackerRank test results. I understand this is a frustrating situation, and I appreciate you bringing your concerns to our attention.
+
+Your request involves a detailed review of your test submission, score evaluation, and potential score adjustment—decisions that require careful human review by our specialized team. Because this matter involves a dispute about grading accuracy and potential score changes, I am escalating your ticket to our senior support and platform team for thorough investigation.
+
+Here's what will happen next: Our team will review your test submission, examine the grading logic applied to your answers, and assess whether any platform-related issues may have affected your score. They will also coordinate with the hiring team's evaluation process as appropriate. You can expect to hear back from a specialist within 1–2 business days with findings and next steps.
+
+In the meantime, if you have specific technical issues you encountered during the test (such as connectivity problems, submission errors, or platform glitches), please reply to this ticket with those details—they will help our team investigate more thoroughly.
+
+We take assessment integrity and fairness seriously, and your case will receive the attention it deserves.","This ticket is explicitly flagged as requiring escalation per the IMPORTANT note provided. The customer is disputing their test score and requesting score adjustment—a privileged action that only a human admin/specialist can perform. This falls under the hard condition: ""The request requires a privileged human action that ONLY a human admin can perform: billing reversal, score/grade change, ownership transfer, account unblocking by request of a non-owner."" Score changes cannot be made by automated systems and require manual review by the platform team and potentially the hiring organization. The request_type is 'product_issue' because the customer is reporting a potential grading/platform problem, not requesting new functionality or reporting a technical bug. The product_area is 'interviews' as this relates to test assessment and evaluation.",product_issue
+escalated,billing,"Thank you for contacting Visa. I understand how frustrating it is to receive the wrong product and have difficulty reaching the merchant for resolution.
+
+Unfortunately, this situation requires specialized handling that goes beyond standard support. Visa does not directly process refunds or manage merchant accounts — these functions are handled by your card issuer (the bank that issued your Visa card) and the acquiring bank that processes payments for the merchant. Additionally, disputes involving merchant conduct and potential account restrictions require investigation by our specialized disputes and compliance teams.
+
+Here's what you should do next:
+
+1. **Contact your card issuer immediately** — Call the phone number on the front or back of your Visa card to report this transaction. Your bank can initiate a formal dispute (also called a chargeback) on your behalf, which is the proper channel for addressing unauthorized or incorrect transactions.
+
+2. **Document everything** — Keep copies of your order confirmation, the merchant's communication (or lack thereof), and photos of the incorrect product you received. Your issuer will need this information.
+
+3. **Escalation to Visa** — Your card issuer will work with the merchant's acquiring bank to investigate the dispute. If the merchant is engaging in fraudulent or abusive practices, this information will be documented through the proper channels.
+
+I'm escalating your ticket to our disputes and merchant compliance team, who will review your case and may reach out to you directly if additional information is needed. They have the authority and access to investigate merchant conduct and take appropriate action.
+
+Your card issuer remains your first point of contact for immediate assistance with the refund process.","This ticket explicitly requires escalation per the IMPORTANT flag provided. The customer is requesting a refund and merchant sanctions — both actions that require privileged human intervention by Visa's disputes and compliance teams. Visa does not directly manage cardholder refunds or merchant accounts; these are handled by financial institutions and specialized dispute teams. The issue involves a potential merchant dispute/chargeback, which is outside the scope of standard support and requires investigation by specialists. The request_type is correctly classified as 'product_issue' (a billing/transaction problem), and the product_area is 'billing' since it concerns a disputed transaction and refund request. The response provides clear guidance on the proper escalation path (contacting the card issuer) while explaining why this requires human specialist review.",product_issue
+escalated,interviews,"Thank you for reaching out, and I apologize that you experienced an interruption with your mock interview. I understand how frustrating that must be, especially when you've invested in credits.
+
+To help resolve this issue, I need to gather some additional information about what happened. Could you please provide the following details:
+
+1. **When did the interruption occur?** (date and approximate time)
+2. **Which type of mock interview were you taking?** (Coding, Behavioral, Technical Screen, System Design, or AI Fluency)
+3. **What exactly happened?** (Did the interview freeze, disconnect, or end unexpectedly?)
+4. **Did you receive any error messages?** If so, please share what they said.
+
+Regarding your refund request: According to our billing policy, if any amount was deducted incorrectly during a payment transaction, it will be refunded within 5–10 business days. However, mock interview credits are tied to your account and cannot be transferred. Each credit allows you to take one interview, and credits are valid for one year from the date of purchase.
+
+Since your interview was interrupted mid-session, this is a technical issue that requires investigation by our support team to determine the best resolution for you. A specialist will review your account, confirm what happened, and work with you on an appropriate remedy—whether that's restoring a credit, processing a refund, or another solution.
+
+I'm escalating your ticket to our support team now, and they will follow up with you shortly with next steps.","This ticket requires escalation because the customer is requesting a refund/credit reversal due to a technical failure during a mock interview session. This is a privileged action that only a human admin can perform—specifically, restoring a mock interview credit to the customer's account or processing a refund. While the corpus (Document 1) provides general billing guidance about refunds for payment failures (5–10 business days), this situation involves a service interruption during an interview, not a payment processing error. The customer's account and credit status need to be reviewed by a specialist to determine the appropriate remedy. The issue also involves troubleshooting a technical problem (why the interview stopped), which requires human investigation. Per the escalation criteria, this meets the hard condition: ""The request requires a privileged human action that ONLY a human admin can perform: billing reversal, score/grade change, ownership transfer, account unblocking by request of a non-owner."" A refund or credit restoration is a billing reversal action.",product_issue
+replied,billing,"Thank you for reaching out to us regarding your payment issue with order ID cs_live_abcdefgh. I understand how frustrating payment problems can be, and I'm here to help you resolve this.
+
+Based on the information you've provided, here are the steps I recommend:
+
+**If a charge was deducted incorrectly:** According to our payment policy, if any amount was deducted incorrectly from your account, it will be automatically refunded within 5–10 business days. Please allow this timeframe for the refund to appear in your account. If you don't see the refund after 10 business days, please follow up with us.
+
+**If your payment failed:** Try refreshing the page and retrying the payment. Sometimes payment failures are temporary and can be resolved by attempting the transaction again.
+
+**To update your payment method:** If you'd like to update your payment information to prevent future issues, you can do so by logging into HackerRank for Work, going to **Manage Subscription** from your profile drop-down menu, and clicking **Update** under the **Payment Method** section. You can then enter your updated card information.
+
+**For additional assistance:** If you need more specific help with your order or if the issue persists, please provide us with additional details such as:
+- Whether the payment failed or if an incorrect amount was charged
+- The date of the transaction
+- Your HackerRank account email address
+
+With this information, our support team can investigate your specific order and ensure your issue is fully resolved. You can also reach out to us at help@hackerrank.com with your order ID for direct assistance.","This is a billing/payment issue for HackerRank. The customer reports a payment problem with a specific order ID. Per the corpus (hackerrank/hackerrank_community/subscriptions-payments-and-billing/9157064719-payments-and-billing-faqs.md), the standard guidance for payment failures is to refresh and retry, and if an incorrect amount was deducted, a refund will be issued within 5–10 business days. The customer can also update their payment method via the Manage Subscription interface (per hackerrank/settings/user-account-settings-and-preferences/4255542979-manage-subscriptions.md). This is a product_issue (billing/payment problem) that can be addressed with standard troubleshooting and procedural guidance. No escalation is required at this stage; the customer should be provided with actionable next steps and invited to provide more details if needed.",product_issue
+escalated,account-management,"Thank you for your interest in using HackerRank for your hiring process. We're excited to help you get started with our platform.
+
+However, your request involves completing information security (infosec) compliance forms for your company, which is a specialized process that requires direct coordination with our dedicated onboarding and compliance teams. This type of request typically involves reviewing your company's specific security requirements, data handling policies, and regulatory obligations—details that need to be handled by our specialists who have access to your account setup and can ensure all compliance requirements are properly addressed.
+
+To move forward, I'm escalating your ticket to our onboarding team, who will reach out to you shortly to:
+- Understand your company's specific infosec requirements
+- Guide you through any necessary compliance documentation
+- Help you configure HackerRank in alignment with your security policies
+- Answer questions about data privacy and platform security features
+
+In the meantime, you may find it helpful to review our Quick Start Guide for Recruiters, which provides an overview of HackerRank's key features for the hiring process. Our team will be in touch within one business day to begin the onboarding process.
+
+If you have any immediate questions about HackerRank's general capabilities or features, please feel free to reach out, and we'll be happy to help.","This ticket requires escalation because the customer is requesting assistance with completing their company's information security compliance forms. This is a privileged human action that requires direct coordination with HackerRank's onboarding and compliance specialists who can review company-specific security requirements, regulatory obligations, and ensure proper account configuration. The reference documents (Quick Start Guide, Onboarding Candidates, Account Insights) provide general platform information but do not contain guidance on handling infosec compliance processes or form completion. This type of request falls outside standard support and requires a human specialist with access to compliance procedures and account setup authority. Request type is 'product_issue' as this relates to account setup and access configuration rather than a bug or feature request.",product_issue
+replied,practice-coding-challenges,"Thank you for reaching out. I understand you're having trouble seeing the ""Apply"" tab and are unable to submit your practice challenge solutions. This is a frustrating issue, and I'm here to help you get back on track.
+
+First, let me clarify: if you're working on a coding challenge in HackerRank Community, you should see a **Submit** button (not an ""Apply"" tab) once you've written your solution in the code editor. If you're not seeing this button or the interface isn't loading properly, here are the troubleshooting steps to try:
+
+**Step 1: Refresh the Challenge**
+Close the challenge window completely, then reopen it using the same challenge link. Sometimes the interface doesn't load fully on the first attempt.
+
+**Step 2: Try a Different Browser**
+Open the challenge in another supported browser such as the latest versions of Chrome, Firefox, or Edge. This ensures full compatibility and can resolve display issues.
+
+**Step 3: Check Your Internet Connection**
+Ensure your internet connection is stable. A weak or intermittent connection can prevent the interface from rendering correctly.
+
+**Step 4: Verify Your Account**
+Make sure you are logged into the **same HackerRank Community account** you used to start the challenge. Results and interface elements only appear when you're on the correct account.
+
+If you've tried all these steps and still cannot see the submission interface, please contact HackerRank support directly at **help@hackerrank.com** with details about which challenge you're attempting and which browser/device you're using. They can investigate further and assist with any account-specific issues.","This is a product_issue related to the practice-coding-challenges product area. The customer reports they cannot see the ""Apply tab"" and cannot submit solutions. Per the Coding Challenges FAQs (Document 1), when challenges do not load or show processing issues, the recommended troubleshooting steps are: (1) close and reopen the challenge, (2) try another supported browser, and (3) ensure stable internet. The FAQ also advises confirming the correct account is being used. These are standard UI/access issues that can be resolved with troubleshooting guidance. The customer can be helped immediately with actionable steps; no escalation is needed unless they report the issue persists after these steps, at which point they should contact help@hackerrank.com as documented.",product_issue
+replied,screen,"Thank you for reporting this issue. I understand how frustrating it must be when submissions aren't working across multiple challenges. Let me help you troubleshoot this problem.
+
+First, please try the following steps to resolve the issue:
+
+1. **Close and reopen the challenge**: Close the challenge window completely, then reopen it using the same challenge link. This can often clear temporary glitches.
+
+2. **Try a different browser**: Open the challenge in another supported browser such as the latest versions of Chrome, Firefox, or Edge. Sometimes browser-level cache can interfere with test functionality, particularly if you've logged in multiple times.
+
+3. **Check your internet connection**: Ensure your internet connection is stable and reliable. You can verify your connectivity using HackerRank's [Internet compatibility check](https://www.hackerrank.com/compatibility).
+
+4. **Clear browser cache**: If switching browsers doesn't help, try clearing your browser's cache and cookies, then attempt the submission again.
+
+5. **Verify your account**: Make sure you are logged into the correct HackerRank account, as results and submissions are tied to specific accounts.
+
+If you've tried all these steps and submissions are still not working across challenges, please provide additional details: Which specific challenges are affected? Are you seeing any error messages? What browser and operating system are you using? This information will help us investigate further.
+
+If the issue persists after troubleshooting, please contact HackerRank support directly at help@hackerrank.com with these details, and our team will investigate the underlying cause.","This is a product_issue (access/usage problem) affecting the core test-taking functionality. The customer reports submissions not working across challenges. Per the corpus (Document 3: Coding Challenges FAQs), when challenges do not load or show processing issues, the recommended troubleshooting steps are: (1) close and reopen the challenge, (2) try another supported browser, and (3) ensure stable internet connection. Document 5 also notes that browser-level cache can prevent retrying tests, recommending a new browser window. These are standard troubleshooting steps that can be provided directly to the customer. Status is set to ""replied"" because this is a technical troubleshooting issue where we can provide actionable guidance. If the customer reports that these steps don't resolve the issue, they can escalate or contact support directly as suggested in Document 3.",product_issue
+replied,interviews,"Thank you for reaching out, and I understand how frustrating it must be to encounter a blocker during the compatibility check. I'm here to help you resolve the Zoom connectivity issue so you can proceed with your test.
+
+Based on the compatibility check system, the pre-test compatibility page is designed to verify that your system meets all requirements before you begin. The Zoom connectivity check is a critical component, especially for interviews that use audio and video calls powered by Zoom.
+
+Here are the troubleshooting steps I recommend:
+
+1. **Verify your system compatibility**: Open the [HackerRank Compatibility](https://www.hackerrank.com/compatibility) link and review all the results carefully. This will show you which specific parameters are not configured correctly.
+
+2. **Check your internet connection**: Ensure your internet connection is stable and has sufficient bandwidth for video conferencing. A weak or unstable connection is a common cause of Zoom connectivity failures.
+
+3. **Review firewall and network settings**: Zoom requires certain ports and domains to be accessible. Check if your firewall, VPN, or network administrator settings are blocking Zoom connectivity. You may need to whitelist Zoom domains or adjust your network configuration.
+
+4. **Test Zoom separately**: Before retrying the HackerRank test, try accessing Zoom directly to confirm it works on your system.
+
+5. **Try a different browser**: Open the compatibility check in another supported browser, such as the latest versions of Chrome, Firefox, or Edge, to rule out browser-specific issues.
+
+If you've completed these steps and are still seeing the Zoom connectivity error, please contact HackerRank support at [support@hackerrank.com](mailto:support@hackerrank.com) and include a screenshot of the error message from the compatibility page. This will help our team diagnose the issue more quickly and provide you with a targeted solution.","This is a bug report related to a compatibility check failure, specifically with Zoom connectivity during the pre-test phase. The corpus documents (Document 6 and Document 7) confirm that HackerRank has a WebSocket Connectivity Check on the compatibility page and provides guidance for resolving connectivity issues. Document 7 specifically instructs users to open the HackerRank Compatibility link, review results, and contact support with a screenshot if issues persist. The customer has already attempted troubleshooting on their own, so the response provides structured troubleshooting steps grounded in the corpus guidance, and directs them to contact support with specific information (screenshot) to enable escalation if needed. This is appropriately handled as a 'replied' status because we can provide actionable troubleshooting guidance based on the available documentation.",bug
+escalated,account-management,"Thank you for reaching out, and we appreciate your interest in completing the HackerRank assessment for this opportunity. We understand that unforeseen circumstances can sometimes prevent candidates from attending their scheduled tests, and we're here to help.
+
+To assist you with rescheduling your assessment, we need to gather some additional information from you. Please provide the following details:
+
+1. **Your full name** and the email address associated with your HackerRank account
+2. **The company name** that invited you to take the assessment
+3. **The original scheduled date and time** of your assessment
+4. **Your preferred alternative date and time** for completing the test
+5. **A brief explanation** of the circumstances that prevented you from attending (this helps us understand your situation better)
+
+Once we receive this information, our support team will work with the hiring company to reschedule your assessment at a time that works for both you and them. Please note that rescheduling requests are typically coordinated between the candidate and the hiring organization, so the final approval will depend on their availability and policies.
+
+We want to ensure you have a fair opportunity to complete this assessment. If you have any questions about the test format, technical requirements, or need any other assistance, please don't hesitate to reach out. You can also visit our [Candidate Support Page](https://candidatesupport.hackerrank.com/hc/en-us/) for additional resources and FAQs that may be helpful as you prepare.
+
+We look forward to helping you reschedule and wish you the best of luck with your assessment!","This ticket is classified as a 'product_issue' (not a feature_request as initially hinted) because the candidate is requesting a specific account/assessment action—rescheduling of a test—rather than requesting new functionality. The request requires human intervention to coordinate with the hiring company and modify the candidate's test schedule, which is a privileged action that only a human support specialist can perform on behalf of the candidate. The ticket lacks critical information (candidate name, email, company name, original test time, preferred reschedule time) needed to process the request. Per the escalation criteria, this requires a human admin to take action on the candidate's behalf to coordinate with the hiring organization and reschedule the assessment. The response provides guidance on what information is needed and sets expectations for the process, while the escalation ensures a human specialist can properly handle the coordination and make the necessary changes to the assessment schedule.",product_issue
+escalated,interviews,"Thank you for bringing this to our attention. I understand the frustration—having candidates unexpectedly returned to the lobby during an active screen-sharing session disrupts the interview flow and creates a poor experience for both interviewers and candidates.
+
+Based on your description, it sounds like the system may be interpreting reduced activity on the HackerRank interface (while interviewers are focused on an external screen share) as inactivity, potentially triggering the candidate to be moved back to the lobby. This is a legitimate concern that affects the interview experience.
+
+Unfortunately, the specific inactivity timeout thresholds and whether they differ between interviewers and candidates are not documented in the resources I have access to. Additionally, the ability to adjust these system-level settings requires access to backend configuration that I cannot modify directly.
+
+**What happens next:** I'm escalating this to our technical team who can:
+- Confirm the current inactivity timeout values for both interviewers and candidates
+- Investigate whether the system is correctly detecting interviewer presence during screen-sharing sessions
+- Evaluate whether the timeouts need adjustment or if there's a technical issue causing premature lobby returns
+- Implement a fix if needed (such as extending timeouts or improving activity detection during screen shares)
+
+Please expect a follow-up from our technical support team within one business day with more detailed information and a path forward. In the meantime, if this continues to occur, please note the exact timestamps and duration of screen shares so our team can review the logs.","This ticket describes a recurring technical issue affecting interview functionality (candidates being unexpectedly moved to the lobby during active sessions). While the customer framed it as a feature request for extended inactivity times, the root cause appears to be either a system behavior misunderstanding or a potential bug in activity detection during screen sharing.
+
+The specific inactivity timeout values and their configuration are not documented in the provided corpus (Documents 1-7 cover lobby functionality, integrity signals, and AI-assisted interviews, but not inactivity timeouts). The request requires investigation of backend system behavior and potentially privileged configuration changes that only a human admin/technical team can perform.
+
+This meets the escalation criteria: (1) it requires investigation of system-level settings not exposed in user-facing documentation, (2) any remediation would require privileged backend access, and (3) the customer needs definitive answers about current configuration and technical investigation of the root cause. Status is escalated rather than replied because I cannot provide the specific timeout values or make configuration changes.",product_issue
+escalated,,"Thank you for reaching out. I'd like to help you resolve this issue, but I need a bit more information to get you the right support.
+
+To assist you effectively, could you please provide the following details:
+
+1. **Which product are you using?** (e.g., HackerRank, Claude, Visa, or another service)
+2. **What specifically isn't working?** Please describe what you were trying to do and what happened instead.
+3. **When did this start?** Did it just begin, or has it been ongoing?
+4. **What device and browser are you using?** (e.g., Chrome on Windows, Safari on Mac, etc.)
+5. **Have you tried any troubleshooting steps already?** If so, what did you try?
+
+Once you provide these details, I'll be able to give you targeted troubleshooting steps or escalate your issue to the appropriate specialist team if needed. I'm here to help!","This ticket has been explicitly flagged as requiring escalation due to insufficient information. The company/product domain is unknown, and the issue description (""it's not working, help"") is too vague to determine the product area, reproduce the problem, or provide actionable troubleshooting steps. Without knowing which platform the customer is using (HackerRank, Claude, Visa, or another service), I cannot ground my response in the appropriate corpus documents or provide specific guidance. The escalation flag overrides the default ""replied"" status. The response requests necessary clarification that will enable proper triage once the customer responds.",bug
+replied,account-management,"Thank you for reaching out! I'd be happy to help you remove an interviewer from your HackerRank platform.
+
+The process for removing a user depends on the context where you're trying to remove them. Here are the most common scenarios:
+
+**If you're removing a team member entirely from your team:**
+1. Navigate to your team settings and locate the user in the team members list.
+2. Select the **delete** icon in the **Action** column next to their name.
+3. Confirm the removal when prompted.
+
+This will remove them from your entire team and they will no longer have access to any team resources.
+
+**If you're removing an interviewer's access to a specific interview template:**
+1. Go to **Interviews > Templates**.
+2. Click the **More options (⋮)** menu next to the template and select **Share**.
+3. In the **Share Interview Template** dialog box, select the interviewer you want to remove.
+4. Select **Remove User** from the drop-down menu.
+5. Click **Confirm** in the confirmation dialog box.
+
+This approach allows you to revoke their access to specific templates while keeping them as a team member.
+
+Could you clarify which scenario applies to your situation? Are you trying to remove them as a team member entirely, or just revoke their access to specific interview templates? This will help me provide more targeted guidance if needed.","This is a product_issue request about account/team management functionality. The customer is asking how to remove an interviewer from the platform. The corpus provides clear procedures for two relevant scenarios: (1) removing a team member entirely (Document 6: manage-team-members.md), and (2) removing user access from an interview template (Document 1: standardizing-interviews-using-templates.md). The customer's mention of ""three dots next to their name"" suggests they may be looking at either a team member list or a template sharing dialog. Since the request is ambiguous about which context they're in, I'm providing both procedures to cover the most likely scenarios. This can be fully answered with the available documentation, so status='replied' is appropriate. The response is multi-paragraph, actionable, and grounded in the corpus.",product_issue
+replied,billing,"Thank you for reaching out. I understand you'd like to pause your HackerRank subscription while you've paused your hiring efforts. The good news is that HackerRank offers a **Pause Subscription** feature that allows you to temporarily suspend your subscription instead of canceling it entirely. This gives you the flexibility to resume whenever you're ready to hire again.
+
+**Here's how to pause your subscription:**
+
+1. Log in to your HackerRank account and click the **profile icon** in the top-right corner of the page.
+2. Select **Settings** from the dropdown menu.
+3. Navigate to the **Billing** section under **Subscription**.
+4. Click the **Cancel Plan** button. A prompt will appear about the Pause Subscription feature.
+5. Select your desired pause duration (you can pause for anywhere from 1 month to 12 months).
+6. Confirm your selection.
+
+**Important eligibility requirements:**
+- Your subscription must have been active for at least 30 days.
+- You must have a monthly subscription plan (such as Individual Monthly - Basic or Interview Monthly).
+
+If you meet these requirements, you should be able to pause your subscription immediately through the self-serve process above. If you encounter any issues or have questions about your specific plan type, please let me know and I'll be happy to help further.
+
+Additionally, if you need to extend the pause period later, you can do so at any time by returning to your Billing page and selecting the extend option.","This is a straightforward product usage request. The customer is asking to pause their subscription due to a temporary business need. The corpus provides clear, step-by-step instructions for the Pause Subscription feature (Documents 2-4), including prerequisites (Document 1) and the general feature description (Document 3). The customer can self-serve this action through the UI without requiring human intervention. Status is set to ""replied"" because the customer can resolve this themselves using the documented self-serve feature. Product area is ""billing"" as this relates to subscription management. Request type is ""product_issue"" as indicated in the initial classification hint—this is an access/usage question about how to use an existing feature.",product_issue
+replied,claude,"Thank you for reporting this issue. I understand how frustrating it is when Claude stops responding completely. Let me help you troubleshoot this problem.
+
+First, let's rule out some common causes:
+
+1. **Check for capacity constraints**: Claude's infrastructure occasionally experiences high demand system-wide. When this happens, you may see a message stating ""Due to unexpected capacity constraints, Claude is unable to respond to your message."" If you're seeing this, this is temporary and typically resolves within a few minutes. Please try again shortly, as capacity issues are normal load management rather than technical outages.
+
+2. **Verify your internet connection**: Make sure you have a stable, active internet connection. Try refreshing your browser or restarting the Claude app.
+
+3. **Check your usage limits**: If you're using voice mode or other features, you may have reached your usage limits. Review your account settings to confirm you have available usage remaining.
+
+4. **Clear your browser cache**: If using Claude in a web browser, try clearing your cache and cookies, then log back in.
+
+5. **Try a different browser or device**: This will help determine if the issue is specific to your current setup.
+
+If none of these steps resolve the issue and you continue to see failures across all requests, please provide additional details: Are you seeing a specific error message? Which Claude interface are you using (web, mobile app, or desktop)? When did this start occurring? This information will help us investigate further.
+
+If the problem persists after trying these steps, we may need to escalate this to our technical team for deeper investigation.","This is a bug report about Claude not responding. Based on the provided corpus, the most relevant guidance comes from Document 4 (troubleshoot-claude-error-messages.md), which addresses capacity constraints—a common cause of Claude failing to respond. The document explains that capacity issues are temporary and typically resolve within minutes, and advises users to try again soon. I've also incorporated general troubleshooting steps from Document 1 (voice mode troubleshooting) that are applicable to broader connectivity and usage limit issues. The customer is reporting a complete failure, which could stem from capacity constraints, connectivity issues, usage limits, or other technical problems. Since the corpus does not indicate this is a widespread outage (capacity constraints don't appear on the status page per Document 4), and the customer can be provided with actionable troubleshooting steps, status='replied' is appropriate. This is not a security, billing reversal, or privileged action issue requiring escalation.",bug
+escalated,privacy-and-legal,"Thank you for reporting this serious matter. Identity theft is a critical security issue that requires immediate attention from our specialized fraud and security team.
+
+We understand how concerning this situation is, and we want to ensure you receive the highest level of support. Your ticket has been escalated to our fraud prevention and security specialists who have the tools and authority to investigate your case thoroughly and take appropriate protective measures on your behalf.
+
+In the meantime, if your identity theft involves your Visa card, please visit our [Lost or Stolen card](/support/consumer/lost-stolen-card.html) page to learn how to cancel your card or request an emergency replacement card. Our skilled support team can assist you at any time with reporting and blocking your card and exploring emergency services if applicable.
+
+A member of our fraud and security team will contact you shortly to gather additional details about the theft, review your account, and guide you through the next steps. Please be prepared to provide information about what you've noticed and any suspicious activity on your accounts.
+
+We take identity theft very seriously and are committed to protecting your account and resolving this matter as quickly as possible.","This ticket has been explicitly flagged as requiring escalation due to identity theft or account fraud being reported. Per the escalation criteria, security incidents and fraud matters require specialist team review and cannot be handled through standard support procedures. The customer is reporting identity theft, which is a serious security matter that requires immediate investigation by Visa's fraud prevention and security team. While general guidance about lost/stolen cards is available in the corpus (visa/support.md documents 1 and 2), the underlying identity theft claim requires privileged human investigation and action that only a specialized fraud team can perform. Request type is 'product_issue' as this is a security/account protection matter rather than a bug or feature request.",product_issue
+replied,job-search-and-applications,"Thank you for reporting this issue with the Resume Builder. I understand how frustrating it can be when a tool you need isn't working properly.
+
+To help resolve this, I'd like to suggest a few troubleshooting steps:
+
+1. **Clear your browser cache and cookies**: Sometimes cached data can cause functionality issues. Try clearing your browser's cache and cookies, then log back into HackerRank Community and attempt to access the Resume Builder again.
+
+2. **Try a different browser**: If the issue persists, try accessing the Resume Builder from a different web browser (Chrome, Firefox, Safari, etc.) to determine if it's browser-specific.
+
+3. **Check your internet connection**: Ensure you have a stable internet connection and try again.
+
+4. **Verify you're accessing the correct tool**: Log in to HackerRank Community, click the **App Switcher** (grid icon) in the top-right corner, and select **Resume Builder** from the dropdown menu.
+
+If you're still experiencing issues after trying these steps, please provide additional details such as:
+- The specific error message you're seeing (if any)
+- Which browser and operating system you're using
+- Whether you're trying to create a new resume or import an existing one
+
+The Resume Builder is designed to help you create professional resumes either from scratch using templates (Classic or Modern) or by importing existing files in .doc, .docx, or .pdf format. Once you regain access, you'll be able to build a comprehensive resume with sections for personal information, experience, education, skills, projects, and certifications.
+
+Please let me know if these troubleshooting steps resolve the issue or if you need further assistance.","This is a product_issue ticket reporting that the Resume Builder tool is down or not functioning. Per the grounding rule, bug reports and outage reports should always receive a replied status with troubleshooting steps or workarounds, even if partial. The customer has not provided specific error details, so I'm providing standard troubleshooting steps (cache clearing, browser switching, connection verification) that are appropriate for access/functionality issues. The response is grounded in the Resume Builder documentation (Documents 1-7) which describe the normal functionality and access path via the App Switcher. This is not a case requiring escalation because: (1) it's not a privileged action request, (2) it's not a security/fraud/legal matter, and (3) I can provide substantively useful troubleshooting guidance. The product_area is 'job-search-and-applications' based on the source document path.",product_issue
+replied,certifications,"Thank you for reaching out! I'm happy to help you update the name on your certificate. The good news is that you can do this yourself directly through your HackerRank Community account—it's a straightforward process that takes just a few minutes.
+
+Here are the steps to update your certificate name:
+
+1. Open your certificate page by logging into your HackerRank Community account.
+2. In the **Full Name** field, enter the correct name you want to display on your certificate.
+3. Click **Regenerate Certificate**.
+4. In the confirmation dialog that appears, click **Update Name**.
+
+Once you complete these steps, your certificate will be updated with the correct name. Please note that you can only update your name once per account, and the change will apply to all of your certificates. After you update it, you won't be able to change it again, so please make sure the name is exactly as you'd like it to appear.
+
+If you need to download or share your updated certificate after making this change, you can do so by going to your profile, scrolling to the **My Certifications** section, clicking on the certificate, and then clicking **Download**. You also have the option to share it on social media platforms or add it directly to your LinkedIn profile.
+
+If you encounter any issues while updating your name or if your certificate doesn't appear after the update, please don't hesitate to reach out to us at help@hackerrank.com.","This is a straightforward product issue where the customer needs to update their certificate name. The corpus provides clear, step-by-step instructions in Document 1 (Certifications FAQs) on how to update a certificate name. The customer can self-serve this task without requiring human intervention. The response includes all necessary procedural steps with specific UI field names and button labels from the source document. Status is set to ""replied"" because this is a standard how-to question with a complete solution available in the knowledge base. Product area is ""certifications"" based on the source documents and the nature of the request.",product_issue
+replied,billing,"Thank you for contacting us about disputing a charge. I'm happy to help guide you through the dispute process.
+
+To dispute a charge on your Visa card, you'll need to contact your card issuer or bank directly. You can reach them using the freephone number located on the front or back of your Visa card. This is the most direct way to initiate a dispute, as your issuer is responsible for handling chargebacks and reversals on your behalf.
+
+When you contact your bank, be prepared to provide detailed information about the transaction you wish to dispute. This typically includes the transaction date, merchant name, amount charged, and a clear explanation of why you believe the charge is incorrect or unauthorized. Having this information ready will help your issuer resolve your dispute more quickly.
+
+If you're unable to reach your issuer using the number on your card, or if you experience any difficulties, you can also place a reverse charge call to +1 303 967 1096 using your local operator. Please note that reverse charge calls may incur fees depending on your location and phone service, and Visa will not be responsible for any such fees.
+
+Your bank will work with the merchant's bank to investigate the dispute and determine whether a reversal is warranted. This process typically takes some time, so please be patient as your issuer works to resolve the matter.","This is a straightforward informational request about the dispute process. The corpus provides clear guidance on how to initiate a dispute (Documents 1, 4, and 5). The customer is asking a how-to question about a standard Visa service. The response is grounded in the provided documents: Document 1 explains contacting the issuer/bank using the card's freephone number and providing detailed transaction information; Document 4 confirms that cardholders contact their issuer to dispute charges; Document 5 reinforces contacting the bank immediately when noticing discrepancies; and Document 7 provides the alternative reverse charge number. This can be fully answered with available information, so status='replied' is appropriate. The request_type='product_issue' is correct as this is an access/usage question about a standard Visa service.",product_issue
+escalated,privacy-and-legal,"Thank you for reporting a potential security vulnerability in Claude. We take security concerns very seriously, and we appreciate your responsible disclosure.
+
+Your report will be escalated to our security team and bug bounty program specialists who handle vulnerability reports. They will review your findings and contact you with next steps.
+
+In the meantime, here are some important details about our security reporting process:
+
+**Anthropic's Model Safety Bug Bounty Program** is our formal channel for security researchers to report vulnerabilities responsibly. Our security team evaluates all reports and works with researchers to validate findings, determine severity, and coordinate fixes.
+
+**For responsible disclosure**, please ensure you:
+- Provide detailed information about the vulnerability, including steps to reproduce it
+- Avoid publicly disclosing the issue until we've had time to assess and address it
+- Do not attempt to access systems or data beyond what is necessary to demonstrate the vulnerability
+
+Our security specialists will be in touch shortly to gather more information about your findings and guide you through the disclosure process. If your report qualifies under our bug bounty program, you may be eligible for a reward based on the severity and impact of the vulnerability.
+
+If you have any immediate concerns or need to provide additional sensitive information, please mark your communication as confidential when you respond.
+
+Thank you for helping us keep Claude secure.","This ticket reports a security vulnerability and has been explicitly flagged as requiring escalation per the IMPORTANT note. The corpus includes references to the ""Model Safety Bug Bounty Program"" (Document 6) and ""Public Vulnerability Reporting"" (Document 5), confirming that Anthropic has a formal security disclosure process. This is a hard escalation condition: security incidents require specialist handling by the responsible disclosure/bug bounty team, not standard support. The product_area is set to 'privacy-and-legal' as this relates to security safeguards and responsible disclosure policies. The request_type is 'product_issue' as indicated in the classification hint, since this is a security concern requiring specialized handling rather than a feature request or standard bug report.",product_issue
+replied,privacy-and-legal,"Thank you for reaching out. I understand you want to prevent Anthropic's crawlers from accessing your website. We respect website owners' preferences and provide clear mechanisms to opt out of our crawling activity.
+
+To block Anthropic's ClaudeBot from crawling your website, you'll need to modify the robots.txt file in your top-level directory. Here are the steps:
+
+1. Access your website's robots.txt file (typically located at yoursite.com/robots.txt)
+2. Add the following lines to block ClaudeBot entirely:
+   - User-agent: ClaudeBot
+   - Disallow: /
+
+3. If you have multiple subdomains, please repeat this process for each subdomain you wish to opt out from
+
+Alternatively, if you want to limit (rather than completely block) crawling activity, you can use the Crawl-delay extension. For example:
+   - User-agent: ClaudeBot
+   - Crawl-delay: 1
+
+This tells our crawler to wait 1 second between requests to your site.
+
+**Important note**: Please do not attempt to block our crawlers by IP address alone, as this may not work reliably or persistently. Modifying your robots.txt file is the recommended and most effective method. If you need to verify whether a crawler is actually from Anthropic, you can check the source IP address against our official list at https://claude.com/crawling/bots.json.
+
+If you believe our bots are malfunctioning or have further questions about our crawling practices, you can contact our team directly at claudebot@anthropic.com. When you reach out, please include your domain name so we can properly investigate your concern.
+
+We're committed to transparent and respectful data collection practices, and we appreciate your engagement with us on this matter.","This is a straightforward product issue regarding website crawling preferences. The customer wants to opt out of Anthropic's web crawling activity. The corpus provides clear, detailed instructions in the article ""Does Anthropic crawl data from the web, and how can site owners block the crawler?"" (source: claude/privacy-and-legal/8896518). The response includes: (1) the specific robots.txt syntax to block ClaudeBot entirely, (2) the alternative Crawl-delay option for rate limiting, (3) the important caveat about not relying on IP blocking, (4) reference to the official IP list for verification, and (5) contact information for further assistance. This can be fully resolved with the information provided in the corpus without requiring human escalation. Status is set to ""replied"" because we can provide complete, actionable guidance.",product_issue
+replied,travel-support,"Thank you for reaching out. I understand you need urgent cash and have your Visa card available. The good news is that your Visa card can help you access cash quickly, even if you don't have physical currency on hand right now.
+
+If your Visa card bears the PLUS logo, you can use it to withdraw local currency at ATMs worldwide using the same PIN you use for other transactions. This is one of the fastest ways to get cash when you need it urgently. To find an ATM near you that accepts Visa cards, you can use Visa's ATM locator tool at https://www.visa.com/locator/atm or look for ATMs displaying the Visa PLUS mark.
+
+Additionally, if you're traveling internationally, using your Visa card for payments is actually safer than carrying large amounts of cash, and you'll benefit from Visa's exchange rate rather than having to calculate rates yourself.
+
+If you've lost your Visa card or it's been stolen and you cannot use it to withdraw cash, Visa's Global Customer Assistance Services (GCAS) can help. You can reach them 24 hours a day, 365 days a year at +1 303 967 1090 from anywhere in the world. GCAS representatives provide multilingual support and can arrange emergency cash services and card replacement wherever you are.
+
+For account-specific questions about your card balance or to verify your card details before attempting a withdrawal, please log in through your card issuer's or bank's website—you'll find the website and contact number on the front or back of your Visa card.","This is a legitimate product usage question, not spam or gibberish. The customer is asking how to access cash using their Visa card, which is a standard product capability. The initial classification hint of 'invalid' is incorrect—this is a genuine request for help with a product feature.
+
+The request_type is 'product_issue' because the customer is asking about how to use their Visa card to access cash, which falls under usage/access guidance. The product_area is 'travel-support' based on the corpus structure showing cash withdrawal and ATM access guidance under visa/support/consumer/travel-support.md.
+
+The response is grounded in Documents 1, 2, and 4, which provide specific guidance on using Visa cards for ATM withdrawals (PLUS logo), locating ATMs, and emergency cash services through GCAS. Status is 'replied' because this is a straightforward how-to question that can be answered with available product information.",product_issue
+replied,account-management,"Thank you for your question about data retention when you allow Claude to use your data for model improvement.
+
+The retention period depends on which Claude product you're using:
+
+**For Claude Consumer Products (Claude Free, Pro, Max):**
+If you've enabled Model Improvement in your Privacy Settings, your chat and coding session data will be used to help improve Claude. According to our privacy protections, your data is automatically de-linked from your user ID before review, and access is limited to a small number of personnel involved in model training. You maintain full control over this setting and can adjust your privacy preferences at any time through your [Privacy Settings](https://claude.ai/settings/data-privacy-controls).
+
+**For Claude API and Commercial Products (Development Partner Program):**
+If your organization has enrolled in the Development Partner Program, your Claude Code input and output tokens will be stored securely for up to two years. Data used for model training will not be associated with other customer information. You can leave the program at any time, but previously provided data will be retained for up to 2 years.
+
+**For Claude for Excel:**
+Data is automatically deleted from our backend within 30 days of receipt or generation, though it may be cached for a number of hours so you can access context in recently closed documents.
+
+To review your specific data retention settings and privacy controls, please visit your account's Privacy Settings. If you have a zero data retention agreement with Anthropic, different terms may apply. For detailed information about how your organization's data is handled, you can also consult your organization's governing agreement with Anthropic or contact your Primary Owner.","This is a straightforward informational question about data retention policies when opting into model improvement. The corpus provides clear guidance across multiple product tiers: consumer products allow user control via Privacy Settings (Document 1), the Development Partner Program specifies 2-year retention (Documents 2-3), and Claude for Excel specifies 30-day deletion (Document 4). The customer is asking a legitimate product question about their own data usage, which is directly addressed in the privacy documentation. Status is ""replied"" because this is a how-to/informational question that can be fully answered with available documentation. Request type is ""product_issue"" as this concerns data handling and privacy settings. Product area is ""account-management"" as it relates to privacy controls and account settings.",product_issue
+escalated,,"Thank you for reaching out. Unfortunately, your request cannot be processed through this support channel as it falls outside the scope of permitted support interactions.
+
+If you believe this is a mistake and you have a legitimate support need, please submit a new request with a clear description of your issue, and our team will be happy to assist you.",Ticket flagged by pre-LLM adversarial detection (prompt injection or malicious code request). No LLM call made. Ticket is not actionable through support.,invalid
+escalated,,"Thank you for reaching out. Unfortunately, your request cannot be processed through this support channel as it falls outside the scope of permitted support interactions.
+
+If you believe this is a mistake and you have a legitimate support need, please submit a new request with a clear description of your issue, and our team will be happy to assist you.",Ticket flagged by pre-LLM adversarial detection (prompt injection or malicious code request). No LLM call made. Ticket is not actionable through support.,product_issue
+replied,amazon-bedrock,"Thank you for reporting this issue. I understand you're experiencing failures with all requests to Claude through AWS Bedrock, which is certainly frustrating. I'd like to help you troubleshoot and resolve this.
+
+To better diagnose the problem, please provide the following information:
+
+1. **Error messages**: What specific error messages are you seeing when requests fail? (e.g., authentication errors, timeout errors, model not found, etc.)
+2. **AWS Region**: Which AWS Region are you attempting to use? Claude models are available in specific regions through Bedrock. You can verify which regions support Claude by checking the [Amazon Bedrock user guide on models and regions](https://docs.aws.amazon.com/bedrock/latest/userguide/models-regions.html).
+3. **Model access**: Have you successfully requested and been granted access to Claude models in the Amazon Bedrock console? You can verify this by visiting the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/) and checking your model access status. If you haven't requested access yet, you can follow the [step-by-step walkthrough in this AWS blog post](https://aws.amazon.com/blogs/aws/anthropics-claude-3-5-sonnet-model-now-available-in-amazon-bedrock-the-most-intelligent-claude-model-yet/).
+4. **Recent changes**: Have you made any recent changes to your AWS credentials, IAM permissions, or project configuration?
+
+Once you provide these details, I can help identify whether this is a configuration issue, a regional availability problem, or a service-level issue. If the problem persists after these troubleshooting steps, we may need to escalate to the AWS support team, as they manage the Bedrock infrastructure directly.","This is a bug report for Claude in Amazon Bedrock. The customer reports that all requests are failing, which indicates a potential service or configuration issue. Based on the corpus articles (7996920, 10280791, 7996918), the most common causes are: (1) model access not requested/granted in the Bedrock console, (2) incorrect AWS region selection, or (3) IAM/credential issues. I'm providing actionable troubleshooting steps grounded in the reference documents, including links to the Bedrock console and AWS documentation. Status is 'replied' because this is a standard bug report that can be addressed with troubleshooting guidance. If the customer provides more specific error details and the issue cannot be resolved through these steps, a follow-up escalation to AWS support may be warranted, but that determination should be made after receiving additional information.",bug
+replied,account-management,"Thank you for reaching out. I understand you need to remove a departing employee from your HackerRank for Work hiring account. I'm happy to help guide you through the process.
+
+To manage team members and their access in HackerRank for Work, you'll need to access the Teams Management section. Here are the steps:
+
+1. Log in to your **HackerRank for Work** account using your credentials.
+
+2. Click the **arrow** next to the user icon in the top-right corner of the homepage.
+
+3. Select **Teams Management** from the dropdown menu.
+
+4. On the **Teams Management** page, click the **Users** tab to view all users in your account.
+
+5. You'll see a list of all users with details such as team, region, and department. Locate the employee you want to remove.
+
+6. Use the **Status** filter at the top of the page if needed to help identify the user. The status options include:
+   - **Activated**: User has activated their account and is part of one or more teams
+   - **Not Activated**: User belongs to teams but hasn't activated their account
+   - **Locked**: User is not part of any team and has no resources allocated
+
+Once you've located the employee, you should be able to manage their team membership and access. If you need additional assistance with removing them from specific teams or if you encounter any issues during this process, please don't hesitate to reach out or contact support@hackerrank.com for further guidance.","This is a product_issue request related to account-management. The customer is asking how to remove a team member from their HackerRank for Work account. The corpus provides clear guidance on accessing Teams Management and viewing user status (Document 3: ""Steps to Identify Team Member Status""). While the document doesn't explicitly detail the removal/deletion process, it provides the navigation steps to access the user management interface where such actions would be performed. This is a legitimate business request that can be answered with the available documentation. The customer can be directed to the Teams Management section where they can manage team membership. Status is set to ""replied"" because this is a standard account management question that can be addressed with procedural guidance from the corpus.",product_issue
+replied,claude-for-education,"Thank you for your interest in setting up Claude for your students! I'm happy to help you get started with the Claude LTI integration.
+
+To set up the Claude LTI key in Canvas, please follow these steps:
+
+1. Sign in to Canvas as an administrator and navigate to **Admin → Developer Keys**.
+2. Click **""+ Developer Key""** and then **""+ LTI Key""**.
+3. Enter the following information:
+   - **Key Name:** Claude LTI
+   - **Description:** Enter a short description for the Canvas LTI 1.3 app
+   - **Redirect URIs:** https://claude.ai/lti/launch
+   - **Title:** Claude LTI
+   - **Target Link URI:** https://claude.ai/lti/launch
+   - **OpenID Connect Initiation URL:** https://claude.ai/api/lti/login
+   - **JWK method:** https://claude.ai/api/lti/keys
+4. Under **Additional Settings**, toggle Privacy Level to **Public**.
+5. Under **Placements**, we recommend removing the defaults and adding **""Course Navigation""** and **""Assignment Edit""** as your placement options.
+6. Click **""Save""**.
+7. Toggle the state to **""On""** to activate the key.
+
+Once you've completed these steps, your Claude LTI integration should be ready for your students to use within your Canvas courses.
+
+If you encounter any issues during the setup process or have questions specific to your university's Claude for Education account, please contact your university's administrator(s), as they may have additional configuration requirements or institutional policies to consider. For more detailed information about Claude for Education, you can also refer to the FAQs and getting started guides available in our support documentation.","This is a straightforward setup request for Claude LTI integration in Canvas. The corpus provides complete, step-by-step instructions in the document ""Set up the Claude LTI in Canvas by Instructure"" (SOURCE: claude/claude-for-education/11725453-set-up-the-claude-lti-in-canvas-by-instructure.md). The customer is a professor seeking to enable Claude for their students, which is a legitimate educational use case covered by Claude for Education. The request_type is correctly classified as 'product_issue' because this is a setup/configuration problem rather than a bug or feature request. Status is set to 'replied' because the corpus provides complete procedural guidance that directly answers the customer's question. No escalation is needed—the customer can follow the documented steps, and if they need institution-specific help, they can contact their university administrator as noted in the corpus.",product_issue
+replied,visa,"Thank you for reaching out about the minimum spend requirement you encountered in the US Virgin Islands.
+
+You're correct to question this, and I can clarify the Visa policy for you. According to Visa's regulations, merchants are generally not permitted to establish minimum or maximum transaction amounts for Visa cards. However, there is a specific exception that applies to your situation: in the USA and US territories—including the US Virgin Islands, Puerto Rico, and Guam—merchants are allowed to require a minimum transaction amount of US$10, but **only for credit cards**.
+
+Since you mentioned this requirement was applied to your Visa card, the merchant may be interpreting this as a credit card transaction. If you were using a Visa debit card instead, the merchant should not be imposing this minimum requirement, as the exception applies exclusively to credit cards.
+
+If you believe the merchant is incorrectly applying this minimum to a debit card, or if you have concerns about how this policy was enforced, please contact your Visa card issuer (your bank). They can review the transaction and provide guidance specific to your account and card type. Your issuer has the authority to address merchant compliance issues on your behalf.
+
+It's also worth noting that Visa itself does not directly manage cardholder or merchant accounts—these are handled by financial institutions (banks). Your bank is the best resource for resolving any disputes or questions about merchant practices affecting your card.","This ticket is a straightforward product_issue inquiry about Visa's merchant minimum spend policies. The customer is located in the US Virgin Islands and is asking why a merchant imposed a $10 minimum. Document 1 (visa/support.md) directly addresses this scenario: it explains that while merchants generally cannot set minimums/maximums on Visa cards, an exception exists in US territories (including US Virgin Islands) allowing a $10 minimum for credit cards only. The customer's question is answered by this corpus material. Status is set to ""replied"" because this is a factual, informational question that can be fully addressed with the available documentation. The response explains the policy, clarifies the credit vs. debit distinction, and directs the customer to their issuer if they need further assistance or believe the rule was misapplied. No escalation is needed.",product_issue
