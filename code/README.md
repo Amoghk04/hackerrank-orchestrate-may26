@@ -139,10 +139,10 @@ Runs the full pipeline on `sample_support_tickets.csv` (the 10-row labelled refe
 
 ```bash
 # Generate predictions for sample tickets and score (requires API key):
-python code/evaluate.py
+python evaluate.py
 
 # Score an already-generated sample_output.csv without re-calling the API:
-python code/evaluate.py --no-generate
+python evaluate.py --no-generate
 ```
 
 Output: `support_tickets/sample_output.csv` plus a Rich accuracy table. Returns exit code 0 if overall accuracy ≥ 70%, else 1.
@@ -152,8 +152,8 @@ Output: `support_tickets/sample_output.csv` plus a Rich accuracy table. Returns 
 51 assertion-based unit tests covering all six public functions in `classifier.py`. No external test framework required — runs with plain Python or `pytest`.
 
 ```bash
-python code/test_classifier.py         # plain Python runner
-pytest  code/test_classifier.py -v     # verbose pytest output
+python test_classifier.py         # plain Python runner
+pytest  test_classifier.py -v     # verbose pytest output
 ```
 
 ---
@@ -170,8 +170,8 @@ pytest  code/test_classifier.py -v     # verbose pytest output
 ## Installation
 
 ```bash
-# Clone / unzip the repo, then from the repo root:
-pip install -r code/requirements.txt
+# From inside the code/ directory:
+pip install -r requirements.txt
 ```
 
 All dependencies are pure Python / PyPI — no system packages required.
@@ -198,28 +198,28 @@ The agent uses `python-dotenv` to load `.env` automatically. The `.env` file is 
 
 ## Running the Agent
 
-All commands are run from the **repo root** (`hackerrank-orchestrate-may26/`).
+All commands are run from inside the **`code/`** directory.
 
 ### Standard run
 
 ```bash
-python code/main.py
+python main.py
 ```
 
-Reads from `support_tickets/support_tickets.csv`, writes to `support_tickets/output.csv`.
+Reads from `../support_tickets/support_tickets.csv`, writes to `../support_tickets/output.csv`.
 
 ### Explicit paths
 
 ```bash
-python code/main.py \
-  --input  support_tickets/support_tickets.csv \
-  --output support_tickets/output.csv
+python main.py \
+  --input  ../support_tickets/support_tickets.csv \
+  --output ../support_tickets/output.csv
 ```
 
 ### Dry run (no file written — for testing)
 
 ```bash
-python code/main.py --dry-run
+python main.py --dry-run
 ```
 
 Processes all tickets and prints the summary table but does not write `output.csv`. Useful for prompt iteration without overwriting results.
@@ -272,16 +272,16 @@ To measure accuracy against the labelled sample tickets before submission:
 
 ```bash
 # Generate predictions for the 10-row sample and score them:
-python code/evaluate.py
+python evaluate.py
 
-# If predictions are already in support_tickets/sample_output.csv:
-python code/evaluate.py --no-generate
+# If predictions are already in ../support_tickets/sample_output.csv:
+python evaluate.py --no-generate
 ```
 
 To run the classifier unit tests:
 
 ```bash
-python code/test_classifier.py    # 51/51 should pass
+python test_classifier.py    # 57/57 should pass
 ```
 
 ---
@@ -370,11 +370,11 @@ numpy>=1.24.0                 # embedding matrix operations
 ## Submission
 
 ```bash
-# Generate output.csv
-python code/main.py
+# From inside the code/ directory — generate output.csv
+python main.py
 
-# Package code
-zip -r code.zip code/
+# From the parent directory — package code
+cd .. && zip -r code.zip code/
 ```
 
 Submission artifacts:
