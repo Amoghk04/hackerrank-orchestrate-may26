@@ -106,14 +106,14 @@ Parses CLI arguments, loads the environment, reads the input CSV, builds the ret
 - `CorpusLoader.load()` — walks `data/hackerrank`, `data/claude`, `data/visa`, reads every `.md` file, and produces `Chunk` objects with `domain`, `source_file`, and `text` fields.
 - `Chunk.as_context()` — formats a chunk for injection into the Claude prompt, including its numbered label and source path.
 - `HybridRetriever` — builds a `BM25Okapi` index and a `SentenceTransformer` embedding matrix at startup. `retrieve(query, company, top_k)` returns the top-k chunks; `retrieve_with_scores(query, company, top_k)` returns `(chunk, rrf_score)` pairs for confidence gating.
-- `build_retriever()` — convenience factory used by `main.py`.
+- `build_retriever()` — convenience factory used by `main.py`. Implements a **fingerprint-based disk cache** in `code/.cache/` (three files: `chunks.pkl`, `embeddings.npy`, `fingerprint.txt`). The fingerprint is an MD5 hash over all `.md` file paths, sizes, and modification times — any corpus change triggers a full rebuild; otherwise the index loads in ~2 seconds.
 
 ### `classifier.py` — Pre-LLM rule engine
 
 - `detect_adversarial(issue)` — scans for prompt injection patterns (including French-language variants) and destructive command patterns. Returns `True` immediately on any match.
 - `should_escalate(issue, company)` — checks five escalation categories: score manipulation, account takeover by non-owner, identity fraud, financial disputes, and security vulnerability reports. Returns `(bool, reason_string)`.
 - `infer_company(issue, subject)` — scores domain-specific keyword hits across HackerRank, Claude, and Visa vocabulary lists; returns the domain with the highest unambiguous score.
-- `classify_request_type(issue, company)` — provides an initial `request_type` hint (`bug`, `feature_request`, `product_issue`, `invalid`) that is passed to the LLM as a starting suggestion (the LLM may override it).
+- `classify_request_type(issue, company, subject="")` — provides an initial `request_type` hint (`bug`, `feature_request`, `product_issue`, `invalid`) that is passed to the LLM as a starting suggestion (the LLM may override it). Pattern matching runs over `f"{subject} {issue}"` so type keywords in the subject line (e.g. `BUG: login timeout`) are captured even when the body is purely descriptive.
 - `detect_non_english(text)` — heuristic flag: returns `True` if >40% of alphabetic characters are non-ASCII. Used to inject a language-response note into the LLM prompt.
 - `detect_multi_request(issue)` — detects numbered lists and multi-request connector phrases ("also want", "additionally", "two issues"). Returns a list of identified sub-request segments.
 
@@ -149,7 +149,7 @@ Output: `support_tickets/sample_output.csv` plus a Rich accuracy table. Returns 
 
 ### `test_classifier.py` — Unit tests
 
-43 assertion-based unit tests covering all six public functions in `classifier.py`. No external test framework required — runs with plain Python or `pytest`.
+51 assertion-based unit tests covering all six public functions in `classifier.py`. No external test framework required — runs with plain Python or `pytest`.
 
 ```bash
 python code/test_classifier.py         # plain Python runner
@@ -260,9 +260,9 @@ Index ready.
 └───────────────────┴────────┘
 ```
 
-**Expected runtime**: ~8–10 minutes for 29 tickets (index build ~6 min on first run due to embedding all 6,496 chunks; ~7–9s per ticket for Claude API calls).
+**Expected runtime**: ~3–5 minutes for 29 tickets after the index is cached (~7–9s per ticket for Claude API calls; index loads in ~2s from cache).
 
-> **Note**: The first run downloads `all-MiniLM-L6-v2` (~90 MB) and encodes all chunks. Subsequent runs reuse the cached model but re-encode chunks each time (no persistent vector store — intentional, keeps the codebase stateless).
+> **First run only**: Downloads `all-MiniLM-L6-v2` (~90 MB) and encodes all 6,496 chunks (~6 min). The resulting index is saved to `code/.cache/` and reused on every subsequent run. The cache auto-invalidates if any corpus `.md` file is added, modified, or removed.
 
 ---
 
@@ -281,7 +281,7 @@ python code/evaluate.py --no-generate
 To run the classifier unit tests:
 
 ```bash
-python code/test_classifier.py    # 43/43 should pass
+python code/test_classifier.py    # 51/51 should pass
 ```
 
 ---
@@ -341,8 +341,8 @@ The LLM defaults to `replied` for all other tickets, including bugs, outages, fe
 **Why BM25 + semantic search instead of pure vector search?**
 BM25 is fast and exact for product-specific jargon (e.g. "CodePair", "LTI key", "Interchange fee"). Semantic search handles paraphrase and synonym matching. RRF fusion keeps the best of both without hyperparameter tuning.
 
-**Why no persistent vector store (FAISS/Chroma)?**
-The corpus is static and only 6,496 chunks. Encoding takes ~6 min once and fits in RAM. A vector DB would add deployment complexity with no runtime benefit for a batch job of 29 tickets.
+**Why a home-grown disk cache instead of a vector DB (FAISS/Chroma)?**
+The corpus is static and only 6,496 chunks. The fingerprint-based cache saves the BM25 index and numpy embedding matrix to `code/.cache/` on the first build and reloads them in ~2 seconds on subsequent runs. A vector DB would add deployment complexity (Docker, config, schema migration) with no runtime benefit for a batch job of 29 tickets.
 
 **Why `temperature=0`?**
 Reproducibility is explicitly evaluated. Deterministic output makes debugging prompt issues straightforward.
@@ -355,18 +355,14 @@ Adversarial tickets must be caught before the LLM sees them — a sufficiently c
 ## Dependencies
 
 ```
-anthropic>=0.25.0        # Claude API client
-rank-bm25>=0.2.2         # BM25Okapi retrieval
+anthropic>=0.25.0             # Claude API client
+rank-bm25>=0.2.2              # BM25Okapi retrieval
 sentence-transformers>=2.7.0  # all-MiniLM-L6-v2 embeddings
-pandas>=2.0.0            # CSV I/O
-pydantic>=2.0.0          # output schema validation
-rich>=13.0.0             # progress bars and summary tables
-python-dotenv>=1.0.0     # .env file loading
-numpy>=1.24.0            # embedding matrix dot-product
-pydantic>=2.0.0
-rich>=13.0.0
-python-dotenv>=1.0.0
-numpy>=1.24.0
+pandas>=2.0.0                 # CSV I/O
+pydantic>=2.0.0               # output schema validation
+rich>=13.0.0                  # progress bars and summary tables
+python-dotenv>=1.0.0          # .env file loading
+numpy>=1.24.0                 # embedding matrix operations
 ```
 
 ---
