@@ -9,7 +9,9 @@ Pipeline:
 
 from __future__ import annotations
 
+import hashlib
 import pathlib
+import pickle
 import re
 import textwrap
 from dataclasses import dataclass, field
@@ -19,7 +21,7 @@ import numpy as np
 from rank_bm25 import BM25Okapi
 from sentence_transformers import SentenceTransformer
 
-from utils import DOMAIN_DIRS, DOMAIN_BOOST, RRF_K, TOP_K, MIN_RETRIEVAL_CONFIDENCE
+from utils import DOMAIN_DIRS, DOMAIN_BOOST, RRF_K, TOP_K, MIN_RETRIEVAL_CONFIDENCE, REPO_ROOT
 
 # ---------------------------------------------------------------------------
 # Chunk model
@@ -280,13 +282,61 @@ class HybridRetriever:
 
 
 # ---------------------------------------------------------------------------
+# Disk cache helpers
+# ---------------------------------------------------------------------------
+
+_CACHE_DIR = REPO_ROOT / "code" / ".cache"
+
+
+def _corpus_fingerprint() -> str:
+    """MD5 hash of all corpus .md file paths + mtimes + sizes for cache invalidation."""
+    hasher = hashlib.md5()
+    for domain_dir in DOMAIN_DIRS.values():
+        if not domain_dir.exists():
+            continue
+        for md_file in sorted(domain_dir.rglob("*.md")):
+            stat = md_file.stat()
+            hasher.update(f"{md_file}:{stat.st_mtime}:{stat.st_size}\n".encode())
+    return hasher.hexdigest()
+
+
+# ---------------------------------------------------------------------------
 # Convenience factory
 # ---------------------------------------------------------------------------
 
 def build_retriever(show_progress: bool = True) -> HybridRetriever:
-    """Load the corpus and build the hybrid index. Takes ~15–25s on CPU."""
+    """
+    Load the corpus and build the hybrid index.
+    Caches chunk list and embeddings to disk — subsequent runs load in ~2s
+    instead of ~15-25s.
+    """
     from rich.console import Console
     console = Console()
+
+    _CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    fp_file = _CACHE_DIR / "fingerprint.txt"
+    chunks_file = _CACHE_DIR / "chunks.pkl"
+    embeddings_file = _CACHE_DIR / "embeddings.npy"
+
+    current_fp = _corpus_fingerprint()
+    cached_fp = fp_file.read_text().strip() if fp_file.exists() else ""
+
+    if current_fp == cached_fp and chunks_file.exists() and embeddings_file.exists():
+        console.print("[bold cyan]Loading retriever from cache…[/bold cyan]")
+        try:
+            with open(chunks_file, "rb") as fh:
+                chunks = pickle.load(fh)
+            embeddings = np.load(str(embeddings_file))
+            # Reconstruct without re-encoding all 6k+ chunks
+            retriever = HybridRetriever.__new__(HybridRetriever)
+            retriever._chunks = chunks
+            retriever._build_bm25()
+            retriever._model = SentenceTransformer("all-MiniLM-L6-v2")
+            retriever._embeddings = embeddings
+            console.print(f"[green]Index loaded from cache ({len(chunks)} chunks).[/green]")
+            return retriever
+        except Exception as e:
+            console.print(f"[yellow]Cache load failed ({e}), rebuilding…[/yellow]")
 
     console.print("[bold cyan]Loading corpus…[/bold cyan]")
     loader = CorpusLoader()
@@ -296,6 +346,17 @@ def build_retriever(show_progress: bool = True) -> HybridRetriever:
     console.print("[bold cyan]Building BM25 + semantic index…[/bold cyan]")
     retriever = HybridRetriever(chunks)
     console.print("[green]Index ready.[/green]")
+
+    # Persist to cache for next run
+    try:
+        with open(chunks_file, "wb") as fh:
+            pickle.dump(chunks, fh)
+        np.save(str(embeddings_file), retriever._embeddings)
+        fp_file.write_text(current_fp)
+        console.print("[green]Index saved to cache.[/green]")
+    except Exception as e:
+        console.print(f"[yellow]Cache save failed: {e}[/yellow]")
+
     return retriever
 
 

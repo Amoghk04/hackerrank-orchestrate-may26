@@ -186,12 +186,13 @@ def infer_company(issue: str, subject: str) -> str | None:
     return best
 
 
-def classify_request_type(issue: str, company: str | None) -> str:
+def classify_request_type(issue: str, company: str | None, subject: str = "") -> str:
     """
     Provide an initial request_type hint. The LLM may override this.
     Returns one of: 'product_issue', 'feature_request', 'bug', 'invalid'
     """
     lower = issue.lower()
+    combined = f"{subject.lower()} {lower}".strip()  # subject + issue for broader pattern matching
 
     # Bug indicators
     bug_terms = [
@@ -203,9 +204,11 @@ def classify_request_type(issue: str, company: str | None) -> str:
         "pages are not", "none of the pages", "website is down",
         "not available", "returning an error", "throws an error",
         "500 error", "404 error",
+        r"none of the.{0,40}working", r"none of the.{0,40}failing",
+        "are failing", "submissions.*not", "not submitting",
     ]
     for term in bug_terms:
-        if re.search(term, lower):
+        if re.search(term, combined):
             return "bug"
 
     # Feature request indicators
@@ -216,7 +219,7 @@ def classify_request_type(issue: str, company: str | None) -> str:
         r"\bfeature\s+request\b",
     ]
     for term in feature_terms:
-        if re.search(term, lower):
+        if re.search(term, combined):
             return "feature_request"
 
     # Invalid / out of scope
@@ -229,7 +232,7 @@ def classify_request_type(issue: str, company: str | None) -> str:
         r"\bdelete\s+all\b", r"\brm\s+-rf\b",
     ]
     for term in invalid_terms:
-        if re.search(term, lower):
+        if re.search(term, combined):
             return "invalid"
 
     # Closing / acknowledgement messages (not actionable support requests)

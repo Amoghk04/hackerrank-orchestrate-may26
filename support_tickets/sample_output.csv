@@ -1,65 +1,63 @@
 issue,subject,company,response,product_area,status,request_type,justification
-I notice that people I assigned the test in October of 2025 have not received new tests. How long do the tests stay active in the system.,Test Active in the system,HackerRank,"Thank you for reaching out about your test assignment concern. I understand you're wondering why candidates assigned a test in October 2025 haven't received new tests, and how long tests remain active in the HackerRank system.
+I notice that people I assigned the test in October of 2025 have not received new tests. How long do the tests stay active in the system.,Test Active in the system,HackerRank,"Thank you for reaching out. I understand you're concerned about test availability for candidates you assigned in October 2025.
 
-The duration a test stays active depends on the **test expiration settings** you configure. According to HackerRank's test management features, you can define a specific start and end time (including time zone) to control when a test remains active in your system [7]. This means tests don't have a fixed, automatic expiration period—instead, you control their availability window.
+In HackerRank, tests do not have an automatic expiration date simply based on when they were created or assigned. However, there is an important feature called **Test Expiration Time** that you may have configured on your test. If you set a specific start and end time (including time zone) when creating or modifying the test, this controls when the test remains active in the system.
 
-Once a test expires (reaches its end date/time):
-- Invited candidates can no longer access the test
+Here's what happens when a test expires:
+- Invited candidates cannot access the test
 - The **Invite** button becomes disabled
-- You cannot invite new candidates to that test [7]
+- You cannot invite new candidates to that test
 
-To resolve your current situation, I recommend the following steps:
+To check if your test has an expiration date set, please review the test settings. If you defined an end date in October 2025 or shortly thereafter, that would explain why new candidates cannot access it.
 
-1. **Check your test's expiration settings**: Log in to your HackerRank for Work account and navigate to the test in question. Review the start and end times you set for that test.
+**To resolve this:**
+1. Go to your **Tests** tab in HackerRank for Work
+2. Select the test in question
+3. Check the test settings for any defined **Test Expiration Time** or end date
+4. If an expiration date has passed, you can modify it to extend the active period, or you can clone the test to create a new version with updated expiration settings
 
-2. **Verify the current date/time**: Confirm whether the test's end date has already passed. If it has, this would explain why new invitations cannot be sent.
+If you did not intentionally set an expiration date and the test should still be active, please verify the test status and settings. If you need further assistance identifying why the test is not accessible to new candidates, I'm happy to help troubleshoot additional details.",screen,replied,product_issue,"This is a product_issue request about test availability and expiration. The customer is asking about how long tests stay active. Document 7 [7] directly addresses test expiration time and explains that tests can have defined start and end times that control when they remain active. The document explains the consequences when a test expires (candidates cannot access, invite button disabled, cannot invite new candidates). Document 1 [1] mentions archiving as an alternative to deletion if tests need to be hidden. The customer's issue is likely related to test expiration settings rather than a bug or feature request. This can be resolved by providing information about test expiration functionality and guiding them to check their test settings. No escalation is needed as this is a straightforward informational/troubleshooting question that can be answered with the available documentation."
+site is down & none of the pages are accessible,,None,"Thank you for reporting this issue. We've received your report that the site is down and pages are not accessible. However, we're unable to determine which service or platform you're trying to access, as no company or product information was provided in your ticket.
 
-3. **Extend the test if needed**: If the test has expired but you want to continue using it, you can modify the test expiration time to set a new end date that allows future candidate invitations.
+To help you as quickly as possible, please reply with the following details:
 
-4. **Check candidate status**: Use the **Candidates** tab to search for the candidates by name or email to review their test history and status.
+1. **Which service are you trying to access?** (e.g., HackerRank, Claude, Visa, or another platform)
+2. **What is the specific URL or site name?**
+3. **When did you first notice this issue?**
+4. **What error message, if any, are you seeing?** (e.g., connection timeout, 404, 500 error, blank page)
+5. **Which browser and device are you using?**
 
-If you need to continue assessing candidates with the same test, you can either extend the expiration time or create a new test. If you'd like more detailed guidance on modifying test expiration settings, please let me know and I can provide step-by-step instructions.",screen,replied,product_issue,"This is a product_issue request about test expiration and availability in HackerRank Screen. The customer is asking about how long tests stay active and why candidates haven't received new tests. Document 7 [7] directly addresses test expiration time and explains that tests have configurable start/end times, and that after expiration, invited candidates cannot access the test and the Invite button is disabled. Document 6 [6] provides guidance on checking candidate status via the Candidates tab. The response provides actionable troubleshooting steps grounded in the corpus and explains the feature clearly. Status is 'replied' because this is a straightforward product question that can be answered with available documentation—no escalation is needed."
-site is down & none of the pages are accessible,,None,"Thank you for reporting this issue. We've received your report that the site is down and pages are not accessible. However, we're unable to determine which product or service you're trying to access, as this information wasn't included in your ticket.
+Once we have this information, we'll be able to route your ticket to the appropriate support team and provide you with targeted troubleshooting steps or escalate to our engineering team if there is an active outage.
 
-To help you as quickly as possible, we need to know which platform you're experiencing issues with. Are you trying to access:
-
-- **HackerRank** (assessments, tests, or the candidate/recruiter platform)
-- **Claude** (the AI assistant or Claude in Chrome extension)
-- **Visa** (card services or travel support)
-- Another service
-
-Once you provide this information, we'll be able to route your ticket to the appropriate team and provide you with specific troubleshooting steps or status updates. If this is a widespread outage, our team will prioritize investigating and resolving it immediately.
-
-Please reply with the name of the service you're trying to access, and we'll escalate this to the right team right away.",,escalated,bug,"The ticket explicitly states ""Company unknown"" and the issue cannot be routed without knowing which product (HackerRank, Claude, or Visa) the customer is trying to access. Per the escalation criteria, when the company cannot be inferred, the ticket must be escalated to a human agent who can contact the customer for clarification and route appropriately. The request_type is 'bug' as indicated by the customer reporting site downtime and inaccessibility. The product_area is set to empty string as per instructions when Company is Unknown."
+We appreciate your patience and apologize for any inconvenience this may be causing.",,escalated,bug,"The ticket reports a site outage but provides no company, product, or domain information. The instruction explicitly states this ticket MUST be escalated because the company is unknown and cannot be inferred. Without knowing which platform the customer is using (HackerRank, Claude, Visa, or another service entirely), we cannot provide actionable support or route to the correct team. This is a hard escalation condition. The request_type is 'bug' as indicated by the initial classification hint, since the customer is reporting that something is broken/inaccessible."
 "I'm noticing that you all have many default versions of roles. (e.g. front end developer for react, angular, vue.js, etc.) What do you consider best practice 
 for when to create a new test versus create a variant of the test? What are the advantages and disadvantages of using variants?","When should I create a variant versus
- have a different test?",HackerRank,"Thank you for this excellent question about test variants. This is a common consideration when setting up assessments for different technology stacks, and I'm happy to clarify the advantages of using variants.
+ have a different test?",HackerRank,"Thank you for this excellent question about test variants. This is a common consideration when setting up assessments for different technology stacks, and I'm happy to clarify how variants can help streamline your testing process.
 
 **What are Test Variants?**
 
-Test variants allow you to create multiple versions of a single test and deliver the correct one based on a candidate's input at login. For example, you can create a single ""Frontend Developer"" test with variants for React, Angular, and Vue.js. Candidates see only the sections relevant to their tech stack, and reports reflect just the variant they attempted [4].
+Test variants allow you to create multiple versions of a single test and deliver the correct one based on a candidate's input at login. Rather than maintaining separate tests for React, Angular, Vue.js, and other frameworks, you can use a single test setup with variants tailored to each tech stack [4]. This approach significantly reduces maintenance overhead while giving you the flexibility to personalize assessments at scale.
 
 **Key Advantages of Using Variants:**
 
-1. **Streamlined Management**: Instead of maintaining three separate tests (Frontend React, Frontend Angular, Frontend Vue), you manage one test with multiple variants. This reduces maintenance overhead significantly [4].
+The primary benefit is operational efficiency. When you use variants, candidates see only the sections relevant to their specific technology choice, and reports reflect just the variant they attempted. This keeps your insights clean, role-specific, and easy to evaluate [4]. Additionally, the variant logic workflow is intuitive—you can route candidates to different test variants based on their answers to a qualifying question [2]. This means you set up the routing once and let the system handle delivery automatically.
 
-2. **Cleaner Reporting**: Reports stay clean and role-specific because they reflect only the variant the candidate attempted, making evaluation easier [4].
+**When to Use Variants vs. Separate Tests:**
 
-3. **Simplified Candidate Experience**: Candidates are routed to the correct variant based on their answer to a qualifying question, so they only see relevant content [2].
-
-4. **Scalability**: You can personalize assessments at scale without creating dozens of separate tests [4].
-
-**Best Practice Recommendation:**
-
-Use variants when you're assessing the same role with different technology implementations (React vs. Angular vs. Vue for frontend developers, Node.js vs. Python vs. Java for backend developers). This keeps your test library organized and reduces duplication.
-
-Create separate tests when you're assessing fundamentally different roles or skill levels (e.g., ""Frontend Developer"" vs. ""QA Engineer"").
+For your scenario with multiple frontend frameworks (React, Angular, Vue.js), variants are the recommended approach. They allow you to assess candidates working with different tech stacks using a single, streamlined test setup [4]. This is particularly valuable when the core competencies being assessed are the same across frameworks—only the specific technology differs.
 
 **Getting Started:**
 
-The variant creation workflow is now more intuitive. When you create a variant, you can set up routing logic based on qualifying questions, and the system will guide you through the process [2]. For detailed step-by-step instructions, please refer to the Create Test Variants documentation in your HackerRank support portal.
+To create variants, log into your HackerRank for Work account, navigate to the Tests tab, open the test you want to modify, go to the Questions tab, click the more options menu (⋮) in the top right, and select Create Variants [6]. The system will convert your existing test into Variant 1 and open Variant 2 for you to customize. You can add additional variants by selecting the + icon next to the tabs. Note that a variant-based test requires at least two variants [6].
 
-If you have additional questions about implementing variants for your specific use case, I'm happy to help further.",screen,replied,product_issue,"This is a product_issue request asking for guidance on feature usage and best practices. The customer is asking when to use variants versus separate tests, and what the advantages/disadvantages are. I have direct documentation on test variants [1, 2, 4, 6] that explains how variants work, their benefits (streamlined management, cleaner reporting, personalized assessments at scale), and their use case (assessing the same role with different tech stacks). Document 4 explicitly states that variants ""reduce maintenance overhead while giving you the flexibility to personalize assessments at scale"" and that candidates ""see only the sections relevant to them, and reports reflect just the variant they attempted."" Document 2 describes the simplified variant logic creation workflow. This is a legitimate product question that can be answered directly from the corpus without escalation. Status is 'replied' because this is informational guidance that can be provided immediately."
+If you'd like more detailed guidance on your specific use case or have questions about implementation, I'd recommend reaching out to your customer account manager, who can provide tailored recommendations based on your hiring workflow.",screen,replied,product_issue,"This is a product_issue request asking for guidance on best practices for test variants versus separate tests. The customer is seeking clarification on feature usage and advantages/disadvantages.
+
+Documents used:
+- [2] (January 2026 release notes): Explains simplified variant logic creation and routing candidates based on qualifying questions
+- [4] (July 2025 release notes): Describes test variants feature, specifically noting they allow assessment of candidates with different tech stacks (Node.js, Python, Java) using a single streamlined setup, and that candidates see only relevant sections with clean, role-specific reports
+- [6] (Test Variants article): Provides step-by-step instructions for creating variants and notes that variant-based tests require at least two variants
+
+The response is grounded in the corpus and provides actionable guidance on when to use variants (for different tech stacks with same core competencies) versus separate tests, along with clear procedural steps. This can be answered directly without escalation as the documentation provides sufficient guidance on the feature's purpose and benefits."
 "Hi there
 
 We have sent a candidate a Hackerrank assessment already, but we have been informed that they require extra time. As the assessment is 105 minutes, they need an extra 50% extra time added (so around 53 minutes) in addition.
@@ -81,98 +79,73 @@ HackerRank for Work provides two methods to extend test duration for candidates:
 4. Once the time accommodation is configured, proceed to **reinvite** the candidate.
 5. Send the reinvitation email.
 
-Regarding your concern about the email showing 105 minutes: When you apply a time accommodation before reinviting, the system should reflect the updated duration. However, if the email still displays only the original duration, this may be a display issue worth verifying in your test settings or with your account team.
+Regarding your concern about the email showing 105 minutes: When you apply a time accommodation before reinviting, the system should reflect the updated total duration (105 + 53 = 158 minutes) in the assessment details. However, the exact display in the invitation email may vary depending on how your system is configured.
 
-**Important note:** The time accommodation you add will extend the candidate's actual test window, allowing them the full 158 minutes (105 + 53) to complete the assessment. The candidate will see the updated duration once they access the reinvited test link.
+**Important note:** If you're using an integrated ATS system (such as IBM Kenexa BrassRing or Oracle Recruiting Cloud), you may also have the option to specify **Time Accommodation%** directly when sending test invitations through that platform [2].
 
-If you're using an integrated ATS system like IBM Kenexa BrassRing or Oracle Recruiting Cloud, you may also have the option to specify the Time Accommodation percentage directly when sending test invitations from within those platforms [2].
+If you encounter any issues with the reinvitation process or if the time accommodation is not displaying correctly in the candidate's invitation, I recommend reaching out to HackerRank's Solution Engineering team, who can provide detailed guidance on your specific setup and help troubleshoot any configuration questions [5].
 
-If you encounter any issues with the reinvitation process or need further clarification on how the time accommodation displays to the candidate, please let me know and I can provide additional guidance.",screen,replied,product_issue,"This is a product_issue request about how to use HackerRank's time accommodation feature for a candidate reinvitation. The customer is asking for procedural guidance on adding extra time and reinviting a candidate.
-
-Document 1 [1] directly addresses this scenario, explaining that HackerRank for Work allows extending test duration through ""Add Time Accommodation"" and ""Add Extra Time"" features. This is the primary source for the step-by-step guidance provided.
-
-Document 2 [2] provides supplementary context about time accommodation in the context of ATS integrations (IBM Kenexa BrassRing), which is relevant if the customer is using an integrated system.
-
-The customer's confusion about whether the email will show the updated duration is a legitimate concern about how the system displays information. While the documents don't explicitly detail the email display behavior, the guidance provided is grounded in the documented features and represents the expected workflow.
-
-Status is ""replied"" because this is a straightforward how-to question that can be answered with the available documentation. The customer needs procedural guidance, not a privileged human action or escalation."
+Please let me know if you need any further clarification!",screen,replied,product_issue,"This is a product_issue request about how to reinvite a candidate with extra time accommodation. The customer is asking for procedural guidance on using HackerRank's time accommodation features. Document 1 [1] directly addresses extending test duration for candidates and mentions both ""Add Time Accommodation"" and ""Add Extra Time"" methods. Document 2 [2] confirms that time accommodation can be specified when sending test invitations, particularly in ATS integrations. Document 5 [5] provides information about the Solution Engineering team's availability for configuration and procedural questions. The response provides actionable step-by-step guidance grounded in the available documentation while acknowledging the customer's specific concern about email display and offering escalation to SE if needed. Status is 'replied' because this is a standard how-to question that can be answered with the available documentation."
 "i signed up using google login on hackerrank community , so i do not have a separate hackerrank password. please delete my account",,HackerRank,"Thank you for reaching out. I understand you'd like to delete your HackerRank Community account that was created using Google login.
 
-Since you signed up using a third-party provider (Google), there's an important step you need to complete before you can delete your account. According to HackerRank's account deletion process, you must first set a password for your account. This is necessary because HackerRank does not store a separate password for accounts created through third-party providers like Google, GitHub, or Facebook.
+Since you signed up using a third-party provider (Google), there's an important step you need to complete before you can delete your account. According to HackerRank's account deletion process, you must first set a password for your account. This is necessary because HackerRank does not store a separate password for accounts created via third-party providers like Google, GitHub, or Facebook.
 
-Here are the steps to delete your account:
+Here's how to proceed:
 
-1. First, reset your password by following the password reset process. You can find detailed instructions in the ""Resetting password"" documentation on HackerRank's help site.
-2. Once you've set a password, log in to the HackerRank Community using your credentials.
-3. Click the profile icon in the top-right corner of the page.
-4. Select **Settings** from the drop-down menu.
-5. Scroll down to the **Delete Accounts** section.
-6. Click **Delete Account**. A confirmation dialog will appear.
-7. Select a reason for deleting your account from the available options.
-8. Click **Proceed to Delete**.
-9. Enter your newly created account password.
-10. Click **Proceed to delete** again to confirm and complete the deletion.
+1. **Set a password for your account**: Follow the steps in the password reset documentation to create a password. You can do this by visiting the password reset page and following the prompts to set a new password for your HackerRank account.
 
-Please note that once you delete your account, it cannot be recovered. All your data, including your profile page, earned badges, and leaderboard positions, will be permanently removed.
+2. **Delete your account**: Once you have set a password, you can proceed with account deletion by logging into HackerRank Community, clicking the profile icon in the top-right corner, selecting **Settings**, scrolling to the **Delete Account** section, and clicking **Delete Account**. You'll be asked to select a reason for deletion and enter your newly created password to confirm.
 
-If you encounter any issues during the password reset process or have any other questions, please contact HackerRank support directly at help@hackerrank.com for further assistance.",community,replied,product_issue,"This is a straightforward account deletion request from a user who signed up via Google login. The documents [2] and [4] provide clear procedural guidance on deleting a HackerRank Community account. Document [2] specifically notes that users who signed up via third-party accounts must set a password before deletion. Document [1] confirms that users without a separate HackerRank password should contact support if they cannot access their third-party account, but in this case the user is simply requesting deletion and can follow the standard process. The request_type is 'product_issue' (account access/usage problem) rather than 'feature_request' or 'bug'. Status is 'replied' because the corpus provides complete procedural guidance to resolve this request without escalation."
+Please note that once your account is deleted, it cannot be recovered, and all your data (profile page, badges, leaderboard positions, etc.) will be permanently removed.
+
+If you encounter any issues setting your password or have questions during the deletion process, please contact HackerRank support at help@hackerrank.com for further assistance.",community,replied,product_issue,"This is a product_issue request about account deletion for a third-party login user. The customer needs procedural guidance. Documents [2] and [4] provide the core deletion steps, while Documents [1] and [3] clarify that third-party login users must set a password before deletion. The response provides step-by-step instructions grounded in the corpus, explaining the password requirement and the deletion process. Status is 'replied' because this is a straightforward procedural question that can be fully answered with available documentation—no escalation is needed."
 "One of my claude conversations has some private info, i forgot to make a temporary chat, is there anything
  else that can be done? like delete etc?",,Claude,"Thank you for reaching out. I understand your concern about private information in a saved conversation. The good news is that Claude provides several options to help you manage this situation.
 
-**Delete the Conversation**
-The most straightforward solution is to delete the conversation containing the private information. You can delete or rename conversations directly from your chat history. This will permanently remove the conversation from your account.
+**Deleting the conversation** is the most straightforward solution. You can delete the specific conversation containing the private information from your chat history. This will permanently remove it from your account. If you need guidance on how to delete a conversation, you can access the help article on deleting or renaming conversations in your account settings.
 
-**Export and Then Delete**
-If you want to preserve any other useful information from your account before taking action, Claude allows you to export your data. You can export your conversations and then delete the specific conversation with sensitive information. For detailed instructions on exporting your data, please refer to the export guide in your account settings.
+**For future reference**, Claude offers **incognito chats** — a feature available to all Claude users (free, Pro, Max, Team, and Enterprise plans) that creates temporary conversations not saved to your chat history or Claude's memory. When you start a new chat outside of a project, you'll see a ghost icon in the upper right corner of your screen. Clicking this icon enables incognito mode, which ensures the conversation won't be retained in your history or used for training purposes. This is ideal for discussions involving sensitive or private information.
 
-**Understanding Incognito Chats for the Future**
-For future conversations involving sensitive or private information, I'd recommend using Claude's incognito chat feature. Incognito chats are temporary conversations that aren't saved to your chat history or Claude's memory. They're available to all Claude users (free, Pro, Max, Team, and Enterprise plans). When you start a new chat outside of a project, you'll see a ghost icon in the upper right corner—clicking it enables incognito mode. These chats are not used for model training and won't be included in future memory summaries [1][7].
+**Important note**: If you're using a Team or Enterprise plan, please be aware that incognito chats are included in standard data exports and follow your organization's data retention policies, so you may want to check with your administrator about those settings.
 
-**Important Note on Data Retention**
-Please be aware that if you're using an Enterprise or Team plan, incognito chats are included in standard data exports and follow your organization's data retention policies [2].
+If you'd like to preserve any other important information from the conversation before deleting it, I recommend copying that content first. Once deleted, the conversation cannot be recovered. If you have any questions about the deletion process or need further assistance, please let me know.",privacy,replied,product_issue,"The customer is asking about options to handle a conversation with private information that was not created as an incognito chat. This is a conversation_management product_issue. The response is grounded in Documents 1, 4, and 7, which explain incognito chats and their privacy benefits, and Document 5, which references the conversation deletion feature. The customer can delete the conversation (standard feature) or use incognito chats going forward. This is a straightforward product question that can be answered with available documentation, so status='replied' is appropriate. The request_type is 'product_issue' as indicated by the hint and confirmed by the nature of the request (access/usage problem regarding conversation privacy)."
+What is the name of the actor in Iron Man?,"Urgent, please help",None,"Thank you for reaching out. However, your question about the actor in Iron Man falls outside the scope of our support services. We provide technical support for HackerRank, Claude/Anthropic, and Visa products and services only.
 
-For immediate assistance with deleting your conversation, simply navigate to your chat history, find the conversation with private information, and select the delete option. If you need further help or have questions about data management, please don't hesitate to reach out.",privacy,replied,product_issue,"This ticket is classified as a privacy-related product_issue because the customer is asking about managing and deleting personal/private information from a conversation [1][6]. The customer forgot to use incognito mode and wants to know what options are available to handle the sensitive data.
+If you have questions related to any of these platforms—such as API access, interview scheduling, account management, or payment services—we'd be happy to help. Please feel free to submit a new ticket with details about your product-related issue, and our team will assist you promptly.
 
-The response is grounded in Documents 1, 2, 4, and 7, which explain incognito chats and their privacy benefits. Document 6 provides context on data deletion and export procedures. The customer can delete the conversation directly, and I've provided guidance on using incognito chats for future sensitive conversations to prevent this situation.
-
-Status is set to ""replied"" because this is a straightforward product question with clear solutions available in the corpus—the customer can delete conversations and use incognito mode going forward. No escalation is needed as this does not require privileged admin action or a security specialist; it's a standard account management and privacy feature question."
-What is the name of the actor in Iron Man?,"Urgent, please help",None,"Thank you for reaching out. However, your question about the actor in Iron Man falls outside the scope of our support services. We provide technical support for HackerRank (hiring and assessment platform), Claude (AI assistant and API), and Visa (payment and travel services).
-
-If you have questions related to any of these products or services, we'd be happy to help. Please feel free to submit a new ticket with details about your issue, and we'll assist you promptly.
-
-For general trivia or entertainment questions, we recommend using a search engine or general-purpose AI assistant.",,replied,invalid,"This ticket asks a trivia question about an actor in a movie, which is completely unrelated to any of the supported products (HackerRank, Claude, or Visa). The request_type is correctly classified as 'invalid' per the guidelines: ""clearly out-of-scope questions (e.g. trivia, unrelated topics)."" The company is unknown and the product_area should be empty string. Status is 'replied' with a brief, polite out-of-scope message, as per instructions: ""Out-of-scope, nonsensical, or trivial questions (request_type='invalid') — reply with a polite 'this is outside our scope' message. Do NOT escalate these."""
+For general information questions unrelated to our products, we recommend using a general search engine or knowledge base. Thank you for understanding.",,replied,invalid,"This ticket is clearly out of scope. The customer is asking a trivia question about a movie actor, which has no relation to HackerRank, Claude/Anthropic, or Visa products and services. Per the triage guidelines, out-of-scope and nonsensical questions should be classified as 'invalid' and replied to with a polite out-of-scope message. No escalation is needed; this is a straightforward out-of-scope case that does not require human intervention."
 I bought Visa Traveller's Cheques from Citicorp and they were stolen in Lisbon last night. What do I do?,,Visa,"I'm sorry to hear your Visa Traveller's Cheques were stolen in Lisbon. The good news is that stolen cheques can be replaced or refunded, and the process is usually quick.
 
 Here's what you need to do immediately:
 
-1. **Contact your issuing bank (Citicorp) right away.** Call them directly and report the theft. They will initiate the replacement or refund process for you.
-
-2. **Report the theft to local police in Lisbon.** This is an important step for your protection and may be required by the issuer.
-
-3. **Have the following information ready** when you contact Citicorp, as they will ask for it:
-   - The serial numbers of the stolen cheques
+1. **Contact Citicorp (your issuing bank) right away.** They are the primary point of contact for stolen cheques and can initiate the replacement or refund process. Have the following information ready when you call:
+   - The serial numbers of your stolen cheques
    - Where and when you purchased the cheques
-   - Details of how and when the cheques were stolen
+   - Details of how and when the cheques were stolen (in Lisbon, last night)
    - Confirmation that Citicorp is the issuer
 
-4. **Keep your purchase agreement safe.** If you still have it, this will help speed up the process.
+2. **Report the theft to local police in Lisbon.** This is an important step for your protection and may be required by the issuer as part of the refund process.
 
-The refund or replacement can usually be arranged within 24 hours, subject to the issuer's terms and conditions being satisfied. Since you have the cheque serial numbers (which you should have written down and kept separate from the cheques themselves), this will help expedite the claim.
+3. **Keep your purchase agreement safe.** If you have it, have it available when speaking with Citicorp.
 
-If you have difficulty reaching Citicorp or need additional assistance, you can contact Visa's traveller's cheques support team for help locating the issuer's contact details. Act quickly—the sooner you report this, the sooner your cheques can be replaced or refunded.",travel_support,replied,product_issue,"This is a Visa traveller's cheques theft/loss case, classified as a product_issue (access/usage problem). The customer needs immediate procedural guidance. Documents 2 and 6 provide the core guidance: contact the issuing bank immediately, report to police, and have specific information ready (serial numbers, purchase details, loss circumstances, issuer name). Document 1 reinforces the importance of keeping serial numbers separate and notifying police. The response provides actionable steps grounded in these documents and explains the typical 24-hour refund timeline from Document 6. Status is 'replied' because this is a standard procedural issue with clear guidance available in the corpus—no human escalation is needed. Product area is 'travel_support' as this involves traveller's cheques theft during travel."
-Where can I report a lost or stolen Visa card from India?,Card stolen,Visa,"Thank you for contacting us about your stolen Visa card. We understand how urgent this situation is, and we're here to help you take immediate action.
+The refund can usually be arranged within 24 hours, subject to certain terms and conditions being satisfied. Citicorp will guide you through their specific process and any documentation they may need.
+
+If you cannot locate Citicorp's contact details or need additional assistance, you can contact Visa's traveller's cheques support team for help connecting with your issuer. The important thing is to act quickly—call Citicorp as soon as possible to report the theft and begin the replacement or refund process.",travel_support,replied,product_issue,"This is a legitimate product_issue request about stolen Visa Traveller's Cheques. The customer has a clear, actionable problem that falls squarely within Visa's travel_support domain. 
+
+I used Document 2 (Report a lost cheque) which states that lost or stolen cheques can be replaced or refunded and directs the customer to call the issuing bank immediately. Document 6 (Have your info ready) provides the specific information the issuer will request. Document 1 (Keep cheques safe) reinforces the importance of reporting to police in case of loss/theft.
+
+The response is grounded in the corpus and provides clear, numbered steps the customer can take immediately. This does not require escalation—it is a standard lost/stolen cheque scenario with documented procedures. The customer can resolve this by contacting their issuer directly, which is the appropriate first step per the documentation."
+Where can I report a lost or stolen Visa card from India?,Card stolen,Visa,"Thank you for contacting Visa support. I understand you need to report a stolen Visa card from India, and I'm here to help you take immediate action.
 
 To report your lost or stolen Visa card, you have several options:
 
-1. **Visit our dedicated support page**: Go to our [Lost or Stolen card](/support/consumer/lost-stolen-card.html) page, where our skilled support team can assist you with reporting and blocking your card. They can also look into providing emergency services if applicable.
+1. **Visit the Lost or Stolen Card Page**: Go to our [Lost or Stolen card support page](/support/consumer/lost-stolen-card.html), where our skilled support team can assist you with reporting and blocking your card. They can also look into providing emergency services if applicable.
 
-2. **Call Visa directly**: You can report your lost card by calling Visa at **000-800-100-1219**. This is a direct line to reach our support team.
+2. **Call Visa Global Customer Assistance Services (GCAS)**: Since you are in India, you can call the Visa Global Customer Assistance Services number for your country. Our GCAS team is available to report lost or stolen cards and request emergency services. You can find the specific phone number for India by visiting our travel support resources, which maintain a list of emergency numbers for each country.
 
-3. **Send an email**: If you prefer to contact us in writing, you can [send an email through our contact form](https://usa.visa.com/Forms/contact-us-form.html).
+3. **General Contact**: You can also reach Visa support by calling **000-800-100-1219** or by [sending an email through our contact form](https://usa.visa.com/Forms/contact-us-form.html).
 
-Since you're in India, we recommend calling the number above as it's the quickest way to get your card blocked and prevent unauthorized use. When you contact us, have your card account number ready to speed up the process.
+**Important**: When you report your card, have your card account number ready. If your card is lost, stolen, or damaged, Visa will work with your financial institution to approve and expedite delivery of an emergency replacement card to you, typically within 1 to 3 days.
 
-If your card has been damaged or compromised while traveling, we can work with your financial institution to approve and expedite the delivery of an emergency replacement card to you, usually within 1 to 3 days.
-
-Please act quickly to prevent any fraudulent charges on your account. Our support team is available to assist you at any time.",general_support,replied,product_issue,"This is a straightforward product_issue request about reporting a lost/stolen Visa card from India. The customer is asking for procedural information on how to report the card. [1] and [2] provide the Lost or Stolen card support page as the primary resource. [4] provides the direct phone number (000-800-100-1219) for reporting a lost card and email contact option. [7] provides information about emergency card replacement timelines. The product_area is 'general_support' because this is a general Visa card reporting issue (not travel-specific, though travel context is available). Status is 'replied' because we can provide complete, actionable procedural guidance from the corpus without requiring human intervention or privileged actions."
-Thank you for helping me,,None,"Thank you for reaching out! We appreciate your kind words. If you have any questions or encounter any issues in the future, please don't hesitate to contact us. We're here to help!",,replied,invalid,"This ticket contains only a thank-you message with no substantive support request, product issue, bug report, or feature request. Per the triage guidelines, thank-you messages and empty-meaning messages should be classified as 'invalid' and replied to briefly without escalation. The company is unknown, so product_area is set to an empty string. A brief, polite acknowledgment is appropriate here."
+Please act quickly to prevent any unauthorized use of your card. Our support team is available at any time to assist you with the reporting process.",general_support,replied,product_issue,This is a straightforward product_issue request about how to report a lost/stolen Visa card. The customer is asking for procedural guidance on where and how to report the card. [1] and [2] provide the primary guidance directing customers to the Lost or Stolen card support page. [4] provides the phone number for reporting (000-800-100-1219). [5] mentions GCAS (Visa Global Customer Assistance Services) which is relevant for customers traveling or in specific countries like India. [7] provides information about emergency card replacement timelines. The response is grounded in these documents and provides actionable next steps. Status is 'replied' because this is a straightforward informational/procedural question that can be fully answered with available documentation.
+Thank you for helping me,,None,"Thank you for reaching out! We appreciate your kind words. If you have any questions or need further assistance with our products or services in the future, please don't hesitate to contact us. We're here to help!",,replied,invalid,"This ticket contains only a thank-you message with no substantive support request, product issue, bug report, or feature request. Per the triage guidelines, thank-you messages and empty-meaning messages should be classified as 'invalid' and replied to briefly with a polite acknowledgment. No escalation is needed, and no specific product area can be identified since there is no actual issue to address. A brief, professional response acknowledging the customer's thanks is appropriate."

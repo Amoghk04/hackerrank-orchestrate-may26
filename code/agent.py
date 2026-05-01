@@ -44,6 +44,11 @@ class TriageResult(BaseModel):
             raise ValueError(f"status must be one of {VALID_STATUSES}, got {v!r}")
         return v
 
+    @field_validator("product_area")
+    @classmethod
+    def normalise_product_area(cls, v: str) -> str:
+        return v.lower().replace(" ", "_").replace("-", "_").strip()
+
     @field_validator("request_type")
     @classmethod
     def validate_request_type(cls, v: str) -> str:
@@ -82,20 +87,16 @@ _TRIAGE_TOOL: Dict[str, Any] = {
             },
             "product_area": {
                 "type": "string",
-                "enum": [
-                    "screen", "community", "privacy", "conversation_management",
-                    "travel_support", "general_support", ""
-                ],
                 "description": (
-                    "The product sub-area. Choose ONLY from the enum values. "
-                    "HackerRank tests/assessments \u2192 'screen'; HackerRank Community platform \u2192 'community'. "
-                    "Claude data privacy, personal data deletion, conversation deletion, GDPR, or any ticket asking to "
-                    "remove/delete/access personal data or conversations for privacy reasons \u2192 'privacy'. "
-                    "Claude chat sessions, conversation history, or managing ongoing chats (NOT involving privacy/deletion) \u2192 'conversation_management'. "
+                    "The product sub-area. Use the corpus source paths as a guide — pick the most specific area that matches. "
+                    "Use underscores, not hyphens. Examples by company: "
+                    "HackerRank: 'screen' (tests/assessments/challenges), 'interviews', 'community', 'library', 'engage', 'skillup', 'integrations', 'settings', 'general_help'. "
+                    "Claude: 'privacy' (data deletion, GDPR, personal data), 'conversation_management' (chat history, sessions — NOT privacy), "
+                    "'claude_for_education', 'amazon_bedrock', 'claude_code', 'claude_desktop', 'claude_mobile_apps', "
+                    "'pro_and_max_plans', 'team_and_enterprise_plans', 'account_management', 'usage_and_limits', 'features_and_capabilities'. "
                     "When in doubt between 'privacy' and 'conversation_management', prefer 'privacy' if the ticket mentions data, deletion, or private information. "
-                    "Visa travel-related issues (including traveller's cheques, cards used abroad) \u2192 'travel_support'; "
-                    "Visa general card questions or reporting (lost/stolen card, where-to-report) \u2192 'general_support'. "
-                    "Use empty string ONLY when Company is Unknown."
+                    "Visa: 'travel_support' (traveller's cheques, cards abroad), 'general_support' (lost/stolen card, general queries). "
+                    "Use empty string ONLY when Company is truly unknown."
                 ),
             },
             "response": {
@@ -278,18 +279,17 @@ class TriageAgent:
 
         # --- Layer 1a: Adversarial detection ---
         if detect_adversarial(issue):
-            request_type = classify_request_type(issue, company_domain)
             return TriageResult(
                 status="escalated",
                 product_area=self._infer_product_area(company_domain, []),
                 response=_ADVERSARIAL_RESPONSE,
                 justification=_ADVERSARIAL_JUSTIFICATION,
-                request_type=request_type,
+                request_type="invalid",
             )
 
         # --- Layer 1b: Rule-based escalation ---
         escalate, reason = should_escalate(issue, company_domain)
-        request_type_hint = classify_request_type(issue, company_domain)
+        request_type_hint = classify_request_type(issue, company_domain, subject)
 
         # If company is unknown and the ticket is not simply invalid/out-of-scope,
         # we cannot route or action it — escalate for human triage.
@@ -354,8 +354,10 @@ class TriageAgent:
         # Fallback: no chunks — use a generic area for the domain
         if company_domain == "visa":
             return "general_support"
-        if company_domain in ("hackerrank", "claude"):
+        if company_domain == "hackerrank":
             return "general_help"
+        if company_domain == "claude":
+            return "account_management"
         return ""
 
     def _call_claude(
@@ -458,6 +460,34 @@ class TriageAgent:
                                 justification=result.justification,
                                 request_type=result.request_type,
                             )
+                    # Domain-specific area overrides based on ticket text
+                    _combined = f"{subject} {issue}".lower()
+                    # Claude: override conversation_management → privacy when user mentions
+                    # private data, deletion of personal info, or GDPR
+                    if (company_domain == "claude"
+                            and result.product_area == "conversation_management"
+                            and any(w in _combined for w in [
+                                "private", "privacy", "personal data", "gdpr", "delete"
+                            ])):
+                        result = TriageResult(
+                            status=result.status,
+                            product_area="privacy",
+                            response=result.response,
+                            justification=result.justification,
+                            request_type=result.request_type,
+                        )
+                    # HackerRank: override settings → community when issue is about the
+                    # HackerRank Community platform
+                    elif (company_domain == "hackerrank"
+                            and result.product_area == "settings"
+                            and "community" in _combined):
+                        result = TriageResult(
+                            status=result.status,
+                            product_area="community",
+                            response=result.response,
+                            justification=result.justification,
+                            request_type=result.request_type,
+                        )
                     # Post-process: if force_escalate but LLM returned 'replied', override
                     if force_escalate and result.status == "replied":
                         result = TriageResult(

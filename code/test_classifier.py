@@ -212,6 +212,12 @@ class TestClassifyRequestType:
     def test_bug_cannot_access(self):
         assert classify_request_type("I cannot access any of the tests", "hackerrank") == "bug"
 
+    def test_bug_none_submissions_working(self):
+        assert classify_request_type("none of the submissions across any challenges are working", "hackerrank") == "bug"
+
+    def test_bug_are_failing(self):
+        assert classify_request_type("all tests are failing on the platform", "hackerrank") == "bug"
+
     def test_feature_request(self):
         assert classify_request_type("Would like to request a dark mode feature", "hackerrank") == "feature_request"
 
