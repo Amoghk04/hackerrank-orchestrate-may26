@@ -217,6 +217,15 @@ def classify_request_type(issue: str, company: str | None, subject: str = "") ->
         r"\bplease\s+add\b", r"\bplease\s+implement\b", r"\bcan\s+you\s+add\b",
         r"\bextend\s+(inactivity|timeout)\b", r"\bis\s+it\s+possible\s+to\b",
         r"\bfeature\s+request\b",
+        # Common phrasings that were previously falling through to product_issue
+        r"\bi'?d\s+like\s+to\b",                                         # "I'd like to see"
+        r"\bwould\s+love\s+to\s+(see|have)\b",                           # "would love to see"
+        r"\bcould\s+you\s+(add|include|enable|support|implement)\b",     # "could you add"
+        r"\bit\s+would\s+be\s+(great|nice|helpful|useful)\s+if\b",      # "it would be nice if"
+        r"\bany\s+plans?\s+to\b",                                        # "any plans to add"
+        r"\bwhen\s+will\s+(you|it)\s+(support|add|have|include)\b",     # "when will you support"
+        r"\bplease\s+consider\b",                                        # "please consider adding"
+        r"\bwish\s+(you|there\s+was|it\s+(could|would))\b",             # "I wish you could"
     ]
     for term in feature_terms:
         if re.search(term, combined):

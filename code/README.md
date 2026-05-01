@@ -124,7 +124,7 @@ Parses CLI arguments, loads the environment, reads the input CSV, builds the ret
 - `_SYSTEM_TEMPLATE` — system prompt establishing the triage persona, grounding rules (cite documents as `[1]`/`[2]` in justification), explicit default of `replied`, hard conditions for `escalated`, and injected corpus context.
 - `_expand_query(issue, subject)` — enriches the retrieval query by extracting capitalised phrases, technical tokens, and proper nouns from the ticket (up to 8 extras appended). Improves recall for tickets with vague subject lines.
 - `TriageAgent.triage(row)` — runs all five pipeline layers for one ticket row, including confidence gate check, non-English detection, and multi-request detection.
-- `_call_claude()` — builds the user message with all contextual notes (low-confidence warning, language note, multi-request note), calls the API with `tool_choice={"type": "any"}`, retries once on failure, and applies force-escalate override if the rule gate fired.
+- `_call_claude()` — builds the user message with all contextual notes (low-confidence warning, language note, multi-request note), calls the API with `tool_choice={"type": "any"}`, retries once on failure, applies force-escalate override if the rule gate fired, and prepends a `[PIPELINE TRACE]` block to the `justification` field (see Output Format → justification).
 - `_safe_fallback()` — last-resort escalation returned if both API attempts fail.
 
 ### `utils.py` — Shared constants and helpers
@@ -295,7 +295,7 @@ python code/test_classifier.py    # 51/51 should pass
 | `status` | `replied` \| `escalated` | Whether the agent resolved the ticket or routed it to a human |
 | `product_area` | string | Corpus sub-category the ticket maps to (e.g. `screen`, `interviews`, `account-management`, `billing`, `privacy-and-legal`) |
 | `response` | string | Customer-facing reply — multi-paragraph, 150–400 words, grounded in corpus |
-| `justification` | string | Internal rationale — cites specific corpus articles used, explains status and request_type choice |
+| `justification` | string | Internal rationale. Structured as two sections: `[PIPELINE TRACE]` (JSON) followed by `[LLM JUSTIFICATION]` (prose). The trace captures pre-LLM deterministic signals — `company_detected`, `retrieval_confidence`, top-3 `top_chunks` with RRF scores, `rule_gate` (fired + reason), `request_type_hint`, and `flags` (non-English, multi-request). The LLM justification cites corpus articles as `[1]`/`[2]`. |
 | `request_type` | `product_issue` \| `feature_request` \| `bug` \| `invalid` | Classification of the support request |
 
 ### `request_type` definitions

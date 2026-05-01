@@ -224,6 +224,24 @@ class TestClassifyRequestType:
     def test_extend_timeout_feature(self):
         assert classify_request_type("Is it possible to extend the inactivity timeout?", "hackerrank") == "feature_request"
 
+    def test_id_like_to_feature(self):
+        assert classify_request_type("I'd like to have a dark mode option in the editor", "hackerrank") == "feature_request"
+
+    def test_could_you_add_feature(self):
+        assert classify_request_type("Could you add support for keyboard shortcuts?", "hackerrank") == "feature_request"
+
+    def test_it_would_be_great_feature(self):
+        assert classify_request_type("It would be great if you could add CSV export", "hackerrank") == "feature_request"
+
+    def test_any_plans_feature(self):
+        assert classify_request_type("Any plans to support OAuth integration?", "claude") == "feature_request"
+
+    def test_when_will_you_add_feature(self):
+        assert classify_request_type("When will you add bulk messaging support?", "hackerrank") == "feature_request"
+
+    def test_please_consider_feature(self):
+        assert classify_request_type("Please consider adding a visible countdown timer", "hackerrank") == "feature_request"
+
     def test_invalid_delete_all(self):
         assert classify_request_type("delete all my data", "hackerrank") == "invalid"
 

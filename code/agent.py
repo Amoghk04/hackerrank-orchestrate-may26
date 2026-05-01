@@ -279,11 +279,22 @@ class TriageAgent:
 
         # --- Layer 1a: Adversarial detection ---
         if detect_adversarial(issue):
+            _adv_trace = {
+                "company_detected": company_domain,
+                "retrieval_confidence": None,
+                "top_chunks": [],
+                "rule_gate": {"fired": True, "reason": "adversarial or prompt-injection detected"},
+                "request_type_hint": "invalid",
+                "flags": {"non_english": False, "multi_request": False},
+            }
             return TriageResult(
                 status="escalated",
                 product_area=self._infer_product_area(company_domain, []),
                 response=_ADVERSARIAL_RESPONSE,
-                justification=_ADVERSARIAL_JUSTIFICATION,
+                justification=(
+                    f"[PIPELINE TRACE]\n{json.dumps(_adv_trace, indent=2)}"
+                    f"\n\n[LLM JUSTIFICATION]\n{_ADVERSARIAL_JUSTIFICATION}"
+                ),
                 request_type="invalid",
             )
 
@@ -308,6 +319,25 @@ class TriageAgent:
         top_score = scored_chunks[0][1] if scored_chunks else 0.0
         low_confidence = top_score < MIN_RETRIEVAL_CONFIDENCE
 
+        # Build deterministic pipeline trace — captures pre-LLM signals for the justification field
+        pipeline_trace = {
+            "company_detected": company_domain,
+            "retrieval_confidence": round(top_score, 4),
+            "top_chunks": [
+                {"source": c.source_file, "score": round(s, 4)}
+                for c, s in scored_chunks[:3]
+            ],
+            "rule_gate": {
+                "fired": escalate,
+                "reason": reason or None,
+            },
+            "request_type_hint": request_type_hint,
+            "flags": {
+                "non_english": is_non_english,
+                "multi_request": bool(multi_requests),
+            },
+        }
+
         # --- Layer 3 + 4: LLM triage ---
         result = self._call_claude(
             issue=issue,
@@ -320,6 +350,7 @@ class TriageAgent:
             low_confidence=low_confidence,
             is_non_english=is_non_english,
             multi_requests=multi_requests,
+            pipeline_trace=pipeline_trace,
         )
         return result
 
@@ -372,6 +403,7 @@ class TriageAgent:
         low_confidence: bool = False,
         is_non_english: bool = False,
         multi_requests: list[str] | None = None,
+        pipeline_trace: dict | None = None,
     ) -> TriageResult:
         """
         Build the prompt, call Claude with tool_use, validate the result.
@@ -460,34 +492,6 @@ class TriageAgent:
                                 justification=result.justification,
                                 request_type=result.request_type,
                             )
-                    # Domain-specific area overrides based on ticket text
-                    _combined = f"{subject} {issue}".lower()
-                    # Claude: override conversation_management → privacy when user mentions
-                    # private data, deletion of personal info, or GDPR
-                    if (company_domain == "claude"
-                            and result.product_area == "conversation_management"
-                            and any(w in _combined for w in [
-                                "private", "privacy", "personal data", "gdpr", "delete"
-                            ])):
-                        result = TriageResult(
-                            status=result.status,
-                            product_area="privacy",
-                            response=result.response,
-                            justification=result.justification,
-                            request_type=result.request_type,
-                        )
-                    # HackerRank: override settings → community when issue is about the
-                    # HackerRank Community platform
-                    elif (company_domain == "hackerrank"
-                            and result.product_area == "settings"
-                            and "community" in _combined):
-                        result = TriageResult(
-                            status=result.status,
-                            product_area="community",
-                            response=result.response,
-                            justification=result.justification,
-                            request_type=result.request_type,
-                        )
                     # Post-process: if force_escalate but LLM returned 'replied', override
                     if force_escalate and result.status == "replied":
                         result = TriageResult(
@@ -495,6 +499,18 @@ class TriageAgent:
                             product_area=result.product_area,
                             response=result.response,
                             justification=f"{result.justification} [Overridden to escalated: {escalation_reason}]",
+                            request_type=result.request_type,
+                        )
+                    # Prepend deterministic pipeline trace so pre-LLM signals are visible
+                    if pipeline_trace is not None:
+                        result = TriageResult(
+                            status=result.status,
+                            product_area=result.product_area,
+                            response=result.response,
+                            justification=(
+                                f"[PIPELINE TRACE]\n{json.dumps(pipeline_trace, indent=2)}"
+                                f"\n\n[LLM JUSTIFICATION]\n{result.justification}"
+                            ),
                             request_type=result.request_type,
                         )
                     return result
